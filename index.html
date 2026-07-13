@@ -600,82 +600,93 @@
     line-height: 1.4;
   }
 
-  /* ===================== BENEFITS ===================== */
-  .benefits-grid{
+  /* ===================== BENEFITS (editorial list, not a card grid) ===================== */
+  .benefits-list{
+    display: flex;
+    flex-direction: column;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .benefit-row{
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--sp-3);
+    gap: var(--sp-2);
+    padding: var(--sp-5) 0;
+    border-top: 1px solid rgba(74,0,36,0.14);
   }
+  .benefit-row:last-child{ border-bottom: 1px solid rgba(74,0,36,0.14); }
   @media (min-width: 780px){
-    .benefits-grid{ grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); }
+    .benefit-row{ grid-template-columns: 0.85fr 1.15fr; gap: var(--sp-6); align-items: center; }
   }
-  .benefit-card{
-    background: #FFFFFF;
-    border: 1px solid rgba(74,0,36,0.06);
-    border-radius: var(--radius-m);
-    padding: var(--sp-4);
-    box-shadow: 0 2px 0 rgba(74,0,36,0.02);
-    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  .benefit-outcome{
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.9rem, 1.5rem + 1.6vw, 2.5rem);
+    line-height: 1.05;
+    color: var(--navy);
+    letter-spacing: -0.02em;
   }
-  .benefit-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-lift); }
-  .benefit-icon{
-    width: 52px; height: 52px;
-    border-radius: 14px;
-    background: linear-gradient(150deg, var(--navy), #2E0016);
-    color: var(--gold-light);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: var(--sp-3);
+  .benefit-outcome span{
+    display: block;
+    font-family: 'Lora', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--gold);
+    letter-spacing: 0;
+    margin-top: 6px;
   }
-  .benefit-icon .icon{ width: 26px; height: 26px; }
-  .benefit-card h3{ margin-bottom: 10px; }
-  .benefit-card p{ color: var(--slate); }
+  .benefit-detail p{ color: var(--slate); font-size: 1.05rem; max-width: 52ch; }
   .benefit-tag{
     display: inline-block;
     margin-top: var(--sp-3);
     font-size: 0.78rem;
     font-weight: 600;
     letter-spacing: 0.04em;
-    color: var(--navy);
+    text-transform: uppercase;
+    color: var(--gold);
     font-family: 'Poppins', Arial, sans-serif;
   }
 
-  /* ===================== HOW IT WORKS ===================== */
-  .steps-grid{
+  /* ===================== HOW IT WORKS (numbered timeline, not icon cards) ===================== */
+  .steps-timeline{
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .steps-timeline::before{
+    content: "";
+    position: absolute;
+    left: 46px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: rgba(74,0,36,0.16);
+  }
+  @media (max-width: 600px){ .steps-timeline::before{ left: 34px; } }
+  .step-row{
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--sp-5);
+    grid-template-columns: 92px 1fr;
+    gap: var(--sp-4);
+    padding: var(--sp-4) 0;
+    position: relative;
   }
-  @media (min-width: 780px){
-    .steps-grid{ grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+  @media (max-width: 600px){
+    .step-row{ grid-template-columns: 68px 1fr; gap: var(--sp-3); }
   }
-  .step-card{ text-align: center; }
-  .step-icon-wrap{
-    width: 84px; height: 84px;
-    margin: 0 auto var(--sp-3);
-    border-radius: 50%;
-    background: #FFFFFF;
-    border: 1px solid rgba(74,0,36,0.08);
-    box-shadow: var(--shadow-lift);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .step-icon-wrap svg{ width: 34px; height: 34px; color: var(--gold); }
-  .step-icon-wrap{ animation: step-bob 3.2s ease-in-out infinite; }
-  .step-card:nth-child(2) .step-icon-wrap{ animation-delay: 0.35s; }
-  .step-card:nth-child(3) .step-icon-wrap{ animation-delay: 0.7s; }
-  @keyframes step-bob{
-    0%, 100%{ transform: translateY(0); }
-    50%{ transform: translateY(-8px); }
-  }
-  .step-num{
+  .step-figure{
     font-family: 'Poppins', Arial, sans-serif;
-    font-weight: 700;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    color: var(--navy);
-    margin-bottom: 8px;
+    font-weight: 800;
+    font-size: 2.75rem;
+    line-height: 1;
+    color: var(--gold);
+    background: var(--off-white);
+    position: relative;
+    z-index: 1;
   }
-  .step-card h3{ margin-bottom: 8px; }
-  .step-card p{ color: var(--slate); max-width: 32ch; margin: 0 auto; }
+  @media (max-width: 600px){ .step-figure{ font-size: 2.1rem; } }
+  .step-copy h3{ margin-bottom: 8px; }
+  .step-copy p{ color: var(--slate); max-width: 48ch; }
 
   /* ===================== PRICING ===================== */
   .pricing-grid{
@@ -818,55 +829,70 @@
   .testimonials .section-head h2{ color: var(--navy); }
   .testimonials .section-head p{ color: var(--slate); }
 
-  .t-grid{
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--sp-3);
+  .quote-featured{
+    max-width: 780px;
+    margin: 0 auto var(--sp-6);
+    padding: 0 0 var(--sp-4);
+    border-top: 2px solid var(--gold);
+    border-bottom: 1px solid rgba(74,0,36,0.14);
   }
-  @media (min-width: 780px){
-    .t-grid{ grid-template-columns: repeat(3, 1fr); }
+  .quote-mark{
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 4.5rem;
+    line-height: 1;
+    color: var(--gold);
+    margin: 10px 0 -24px;
   }
-  .t-card{
-    background: #FFFFFF;
-    border: 1px solid rgba(74,0,36,0.1);
-    border-radius: var(--radius-m);
-    padding: var(--sp-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-3);
-    box-shadow: 0 2px 0 rgba(74,0,36,0.02);
-    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
-  }
-  .t-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-lift); }
-  .t-card .icon{ width: 26px; height: 26px; color: var(--gold); }
-  .t-card blockquote{
-    margin: 0;
+  .quote-featured p{
+    font-family: 'Lora', Georgia, serif;
     font-style: italic;
-    font-size: 1rem;
-    line-height: 1.65;
-    color: var(--slate);
+    font-size: clamp(1.3rem, 1.1rem + 1vw, 1.6rem);
+    line-height: 1.5;
+    color: var(--navy);
+    margin: 0 0 var(--sp-4);
   }
-  .t-person{ display: flex; align-items: center; gap: 12px; margin-top: auto; }
-  .t-avatar{
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(150deg, var(--gold), var(--mauve));
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Poppins', Arial, sans-serif;
-    font-weight: 700;
-    font-size: 0.86rem;
-    color: var(--navy-deep);
-    flex-shrink: 0;
+  .quote-featured footer{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-2);
+    padding-top: var(--sp-3);
+    border-top: 1px solid rgba(74,0,36,0.12);
   }
-  .t-name{ font-family: 'Poppins', Arial, sans-serif; font-weight: 600; font-size: 0.9rem; color: var(--navy); }
-  .t-role{ font-size: 0.78rem; color: var(--slate); opacity: 0.75; }
-  .t-stat{
+  .quote-person cite{ font-style: normal; font-family: 'Poppins', Arial, sans-serif; font-weight: 700; color: var(--navy); font-size: 1rem; }
+  .quote-role{ display: block; font-size: 0.82rem; color: var(--slate); margin-top: 2px; }
+  .quote-stat{
     font-family: 'Poppins', Arial, sans-serif;
     font-size: 0.78rem;
     font-weight: 600;
-    color: var(--navy);
+    color: var(--gold);
     letter-spacing: 0.02em;
   }
+
+  .quote-row{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  @media (min-width: 720px){
+    .quote-row{ grid-template-columns: 1fr 1fr; gap: var(--sp-6); }
+  }
+  .quote-small{ padding-top: var(--sp-3); border-top: 1px solid rgba(74,0,36,0.14); }
+  .quote-small p{
+    font-family: 'Lora', Georgia, serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--slate);
+    margin: 0 0 var(--sp-3);
+  }
+  .quote-small footer{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-2); }
+  .quote-small cite{ font-style: normal; font-family: 'Poppins', Arial, sans-serif; font-weight: 600; font-size: 0.9rem; color: var(--navy); }
+  .quote-small .quote-role{ font-size: 0.76rem; color: var(--slate); }
 
   /* ===================== BY THE NUMBERS ===================== */
   .stat-band{
@@ -1194,7 +1220,6 @@
     .btn:hover, .benefit-card:hover, .t-card:hover, .price-card:hover{ transform: none; }
     .nav-cta .btn-gold{ animation: none !important; }
     .nav-cta .btn-gold::before{ animation: none !important; display: none; }
-    .step-icon-wrap{ animation: none !important; }
     .price-card.featured{ animation: none !important; }
     .js .reveal.in-view .price-check{ transform: scale(1); opacity: 1; transition: none; }
     .hero-photo img{ transform: none !important; }
@@ -1380,39 +1405,36 @@
       <p>You didn't get into coaching to become a full-time admin. Here's what shifts in your business once your Silent Partner takes over the busywork.</p>
     </div>
 
-    <div class="benefits-grid">
-      <div class="benefit-card reveal">
-        <div class="benefit-icon">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="m9 16 2 2 4-4"></path></svg>
+    <div class="benefits-list">
+      <div class="benefit-row reveal">
+        <div class="benefit-outcome">10+ hours<span>back, every week</span></div>
+        <div class="benefit-detail">
+          <p>No more re-typing the same follow-up message at 9pm. Replies, reminders, and rebooking happen around the clock — your evenings go back to being yours.</p>
+          <span class="benefit-tag">From admin to off-duty</span>
         </div>
-        <h3>Get 10+ hours back every week</h3>
-        <p>No more re-typing the same follow-up message at 9pm. Replies, reminders, and rebooking happen around the clock — your evenings go back to being yours.</p>
-        <span class="benefit-tag">FROM ADMIN TO OFF-DUTY</span>
       </div>
 
-      <div class="benefit-card reveal">
-        <div class="benefit-icon">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      <div class="benefit-row reveal">
+        <div class="benefit-outcome">Zero<span>leads lost to silence</span></div>
+        <div class="benefit-detail">
+          <p>Every inquiry gets a response in minutes, not days. Leads that used to go cold in your inbox now land on your calendar as booked discovery calls.</p>
+          <span class="benefit-tag">From cold inbox to booked calls</span>
         </div>
-        <h3>Stop losing leads to silence</h3>
-        <p>Every inquiry gets a response in minutes, not days. Leads that used to go cold in your inbox now land on your calendar as booked discovery calls.</p>
-        <span class="benefit-tag">FROM COLD INBOX TO BOOKED CALLS</span>
       </div>
 
-      <div class="benefit-card reveal">
-        <div class="benefit-icon">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+      <div class="benefit-row reveal">
+        <div class="benefit-outcome">More clients<span>zero new hires</span></div>
+        <div class="benefit-detail">
+          <p>Take on more clients without adding a single team member. Your Silent Partner scales the admin side of your business quietly in the background.</p>
+          <span class="benefit-tag">From capacity cap to room to grow</span>
         </div>
-        <h3>Grow your roster without hiring</h3>
-        <p>Take on more clients without adding a single team member. Your Silent Partner scales the admin side of your business quietly in the background.</p>
-        <span class="benefit-tag">FROM CAPACITY CAP TO ROOM TO GROW</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ===================== HOW IT WORKS ===================== -->
-<section class="section section-alt" id="how-it-works">
+<section class="section" id="how-it-works">
   <div class="container">
     <div class="section-head reveal">
       <span class="label">How it works</span>
@@ -1420,32 +1442,29 @@
       <p>No dashboards to learn, no software to install. Here's the whole process, start to finish.</p>
     </div>
 
-    <div class="steps-grid">
-      <div class="step-card reveal">
-        <div class="step-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="M9 16h6"></path></svg>
+    <div class="steps-timeline">
+      <div class="step-row reveal">
+        <div class="step-figure">01</div>
+        <div class="step-copy">
+          <h3>Book your free strategy call</h3>
+          <p>We map exactly where your leads and follow-ups are slipping through — on a real 20-minute call, not a form.</p>
         </div>
-        <div class="step-num">STEP ONE</div>
-        <h3>Book your free strategy call</h3>
-        <p>We map exactly where your leads and follow-ups are slipping through — on a real 20-minute call, not a form.</p>
       </div>
 
-      <div class="step-card reveal">
-        <div class="step-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      <div class="step-row reveal">
+        <div class="step-figure">02</div>
+        <div class="step-copy">
+          <h3>I build your Silent Partner</h3>
+          <p>Trained on how you actually talk to clients, wired into the tools you already use — live in under 3 weeks.</p>
         </div>
-        <div class="step-num">STEP TWO</div>
-        <h3>I build your Silent Partner</h3>
-        <p>Trained on how you actually talk to clients, wired into the tools you already use — live in under 3 weeks.</p>
       </div>
 
-      <div class="step-card reveal">
-        <div class="step-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"></path><path d="M3 12.2v-2a4 4 0 0 1 4-4h14"></path><path d="M7 21.9l-4-4 4-4"></path><path d="M21 11.8v2a4 4 0 0 1-4 4H3"></path></svg>
+      <div class="step-row reveal">
+        <div class="step-figure">03</div>
+        <div class="step-copy">
+          <h3>It runs quietly in the background</h3>
+          <p>Follow-ups, bookings, and nurture happen automatically, day and night. You just show up and coach.</p>
         </div>
-        <div class="step-num">STEP THREE</div>
-        <h3>It runs quietly in the background</h3>
-        <p>Follow-ups, bookings, and nurture happen automatically, day and night. You just show up and coach.</p>
       </div>
     </div>
   </div>
@@ -1502,45 +1521,34 @@
       <p>Real practices, real follow-through — the kind that used to fall through the cracks between client sessions.</p>
     </div>
 
-    <div class="t-grid">
-      <article class="t-card reveal">
-        <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.17 6C4.86 8.44 4 10.7 4 13.36c0 2.85 1.9 4.64 4.13 4.64 2.06 0 3.6-1.6 3.6-3.6 0-1.9-1.36-3.4-3.13-3.4-.3 0-.6.03-.86.1C8.03 9.1 9.3 7.4 11.2 6l-4.03 0zm9.5 0c-2.3 2.44-3.17 4.7-3.17 7.36 0 2.85 1.9 4.64 4.13 4.64 2.06 0 3.6-1.6 3.6-3.6 0-1.9-1.36-3.4-3.13-3.4-.3 0-.6.03-.86.1.27-1.9 1.54-3.6 3.43-5l-4 0z"></path></svg>
-        <blockquote>"I used to lose two or three leads a week just because I didn't get to them in time. Now every inquiry gets a same-day reply. I booked 9 discovery calls last month without touching my phone after 6pm."</blockquote>
-        <div class="t-stat">9 discovery calls booked hands-free</div>
-        <div class="t-person">
-          <div class="t-avatar">RC</div>
-          <div>
-            <div class="t-name">Renata Cole</div>
-            <div class="t-role">Career Transition Coach</div>
-          </div>
+    <blockquote class="quote-featured reveal">
+      <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+      <p>I used to lose two or three leads a week just because I didn't get to them in time. Now every inquiry gets a same-day reply. I booked 9 discovery calls last month without touching my phone after 6pm.</p>
+      <footer>
+        <div class="quote-person">
+          <cite>Renata Cole</cite>
+          <span class="quote-role">Career Transition Coach</span>
         </div>
-      </article>
+        <div class="quote-stat">9 discovery calls booked hands-free</div>
+      </footer>
+    </blockquote>
 
-      <article class="t-card reveal">
-        <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.17 6C4.86 8.44 4 10.7 4 13.36c0 2.85 1.9 4.64 4.13 4.64 2.06 0 3.6-1.6 3.6-3.6 0-1.9-1.36-3.4-3.13-3.4-.3 0-.6.03-.86.1C8.03 9.1 9.3 7.4 11.2 6l-4.03 0zm9.5 0c-2.3 2.44-3.17 4.7-3.17 7.36 0 2.85 1.9 4.64 4.13 4.64 2.06 0 3.6-1.6 3.6-3.6 0-1.9-1.36-3.4-3.13-3.4-.3 0-.6.03-.86.1.27-1.9 1.54-3.6 3.43-5l-4 0z"></path></svg>
-        <blockquote>"My nurture sequence used to be a Google Doc I never opened. Now it just runs. This paid for itself in the first eleven days."</blockquote>
-        <div class="t-stat">Paid for itself in 11 days</div>
-        <div class="t-person">
-          <div class="t-avatar">PA</div>
-          <div>
-            <div class="t-name">Priya Anand</div>
-            <div class="t-role">Executive Leadership Coach</div>
-          </div>
-        </div>
-      </article>
+    <div class="quote-row">
+      <blockquote class="quote-small reveal">
+        <p>My nurture sequence used to be a Google Doc I never opened. Now it just runs. This paid for itself in the first eleven days.</p>
+        <footer>
+          <cite>Priya Anand</cite>
+          <span class="quote-role">Executive Leadership Coach</span>
+        </footer>
+      </blockquote>
 
-      <article class="t-card reveal">
-        <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.17 6C4.86 8.44 4 10.7 4 13.36c0 2.85 1.9 4.64 4.13 4.64 2.06 0 3.6-1.6 3.6-3.6 0-1.9-1.36-3.4-3.13-3.4-.3 0-.6.03-.86.1C8.03 9.1 9.3 7.4 11.2 6l-4.03 0zm9.5 0c-2.3 2.44-3.17 4.7-3.17 7.36 0 2.85 1.9 4.64 4.13 4.64 2.06 0 3.6-1.6 3.6-3.6 0-1.9-1.36-3.4-3.13-3.4-.3 0-.6.03-.86.1.27-1.9 1.54-3.6 3.43-5l-4 0z"></path></svg>
-        <blockquote>"I was skeptical about handing off client communication to 'a bot.' It still sounds like me — because it's built from how I actually talk to my clients."</blockquote>
-        <div class="t-stat">Sounds like her, not a script</div>
-        <div class="t-person">
-          <div class="t-avatar">MR</div>
-          <div>
-            <div class="t-name">Marisol Reyes</div>
-            <div class="t-role">Business Coach for Women 40+</div>
-          </div>
-        </div>
-      </article>
+      <blockquote class="quote-small reveal">
+        <p>I was skeptical about handing off client communication to "a bot." It still sounds like me — because it's built from how I actually talk to my clients.</p>
+        <footer>
+          <cite>Marisol Reyes</cite>
+          <span class="quote-role">Business Coach for Women 40+</span>
+        </footer>
+      </blockquote>
     </div>
   </div>
 </section>
