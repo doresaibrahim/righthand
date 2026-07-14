@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Right Hand — Intake Automation for Coaches</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cream: #F7F1E4;
+      --cream-tint: #EFE6D3;
+      --burgundy: #4A0024;
+      --burgundy-soft: #6B3348;
+      --gold: #C39842;
+      --sand: #C6B49B;
+      --font-heading: 'Poppins', Arial, sans-serif;
+      --font-body: 'Lora', Georgia, serif;
+      --font-script: 'Pinyon Script', 'Brush Script MT', cursive;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--burgundy-soft);
+      font-size: 17px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, nav, button, .label {
+      font-family: var(--font-heading);
+      color: var(--burgundy);
+      font-weight: 700;
+    }
+
+    h1 { font-size: 2.8rem; line-height: 1.2; }
+    h2 { font-size: 2rem; line-height: 1.3; margin-bottom: 1.5rem; }
+    h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+    h4 { font-size: 1.1rem; }
+
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { opacity: 0.85; }
+
+    /* ===== STICKY NAV ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(247, 241, 228, 0.98);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--sand);
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 70px;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    nav .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1000px;
+      padding: 0 2rem;
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    nav .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--burgundy);
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    nav .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    nav .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.2s ease;
+    }
+
+    nav .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    nav .cta-button {
+      background: var(--gold);
+      color: var(--burgundy);
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 8px rgba(195, 152, 66, 0.2);
+    }
+
+    nav .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(195, 152, 66, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      nav .nav-links {
+        gap: 1.5rem;
+      }
+      nav .nav-links a {
+        font-size: 0.85rem;
+      }
+      nav .cta-button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      margin-top: 70px;
+      padding: 100px 2rem 80px;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse at 30% 40%, rgba(195, 152, 66, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+      filter: blur(40px);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 30%;
+      left: -15%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(ellipse at 60% 50%, rgba(74, 0, 36, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      filter: blur(40px);
+    }
+
+    .hero-content {
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      animation: fadeUpHero 0.8s ease-out;
+    }
+
+    @keyframes fadeUpHero {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow {
+      font-size: 0.9rem;
+      font-family: var(--font-heading);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .hero h1 .script-word {
+      font-family: var(--font-script);
+      color: var(--gold);
+      font-size: 3rem;
+      font-weight: normal;
+    }
+
+    .hero h1 .underline-word {
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero h1 .underline-word::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      animation: drawUnderline 1s ease-out 0.3s forwards;
+      opacity: 0;
+    }
+
+    @keyframes drawUnderline {
+      from {
+        width: 0;
+        left: 50%;
+        opacity: 1;
+      }
+      to {
+        width: 100%;
+        left: 0;
+        opacity: 1;
+      }
+    }
+
+    .hero .promise {
+      font-size: 1.3rem;
+      color: var(--burgundy-soft);
+      max-width: 600px;
+      margin: 2rem auto;
+      line-height: 1.7;
+      animation: fadeUpHero 0.8s ease-out 0.2s backwards;
+      animation-fill-mode: both;
+    }
+
+    .hero-cta {
+      background: var(--gold);
+      color: var(--burgundy);
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      border: none;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 2rem;
+      box-shadow: 0 4px 20px rgba(195, 152, 66, 0.3);
+      position: relative;
+      overflow: hidden;
+      animation: fadeUpHero 0.8s ease-out 0.4s backwards;
+      animation-fill-mode: both;
+    }
+
+    .hero-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(195, 152, 66, 0.4);
+    }
+
+    .hero-cta:active {
+      transform: translateY(-1px);
+    }
+
+    /* ===== BOOKING MODAL ===== */
+    .booking-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(74, 0, 36, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .booking-modal.open {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .booking-content {
+      background: var(--cream);
+      border-radius: 12px;
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(74, 0, 36, 0.2);
+      animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .booking-content h3 {
+      margin-bottom: 1rem;
+    }
+
+    .booking-content p {
+      color: var(--burgundy-soft);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--burgundy);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--sand);
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--burgundy-soft);
+      background: white;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(195, 152, 66, 0.1);
+    }
+
+    .booking-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .booking-buttons button {
+      flex: 1;
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: none;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .booking-buttons .submit-btn {
+      background: var(--gold);
+      color: var(--burgundy);
+    }
+
+    .booking-buttons .submit-btn:hover {
+      background: #B38833;
+    }
+
+    .booking-buttons .close-btn {
+      background: var(--cream-tint);
+      color: var(--burgundy);
+      border: 1px solid var(--sand);
+    }
+
+    .booking-buttons .close-btn:hover {
+      background: var(--sand);
+    }
+
+    .booking-loading {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .booking-loading.show {
+      display: block;
+    }
+
+    .booking-loading .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--sand);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .booking-success {
+      display: none;
+      text-align: center;
+    }
+
+    .booking-success.show {
+      display: block;
+    }
+
+    .booking-success .checkmark {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: popIn 0.4s ease-out;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .booking-success .checkmark svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--cream);
+      fill: none;
+      stroke-width: 3;
+    }
+
+    .booking-success h3 {
+      color: var(--burgundy);
+      margin-bottom: 0.5rem;
+    }
+
+    .booking-success p {
+      color: var(--burgundy-soft);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 80px 1.5rem 60px;
+        margin-top: 70px;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero h1 .script-word {
+        font-size: 1.9rem;
+      }
+      .hero .promise {
+        font-size: 1.1rem;
+      }
+      .hero-cta {
+        width: 100%;
+      }
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      padding: 80px 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    section:nth-child(even) {
+      background: var(--cream-tint);
+    }
+
+    section:nth-child(odd) {
+      background: var(--cream);
+    }
+
+    .section-content {
+      animation: fadeUp 0.8s ease-out;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== BENEFITS ===== */
+    .benefits-grid {
+      display: grid;
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .benefit-item {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--sand);
+      box-shadow: 0 4px 12px rgba(74, 0, 36, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .benefit-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(74, 0, 36, 0.12);
+    }
+
+    .benefit-check {
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      margin-right: 0.8rem;
+      vertical-align: middle;
+    }
+
+    .benefit-item h3 {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: var(--burgundy);
+    }
+
+    .benefit-item p {
+      color: var(--burgundy-soft);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .benefits-grid {
+        gap: 1.5rem;
+      }
+      .benefit-item {
+        padding: 1.5rem;
+      }
+    }
+
+    /* ===== TESTIMONIAL ===== */
+    .testimonial-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--sand);
+      box-shadow: 0 4px 12px rgba(74, 0, 36, 0.08);
+      max-width: 700px;
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    .testimonial-card .quote {
+      font-size: 1.2rem;
+      color: var(--burgundy);
+      font-style: italic;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .testimonial-card .attribution {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--burgundy);
+      margin-bottom: 0.3rem;
+    }
+
+    .testimonial-card .role {
+      font-size: 0.9rem;
+      color: var(--sand);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== OBJECTION ===== */
+    .objection-section {
+      background: var(--cream);
+      text-align: center;
+    }
+
+    .objection-text {
+      font-size: 1.15rem;
+      color: var(--burgundy-soft);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+      border-left: 4px solid var(--gold);
+      padding-left: 2rem;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .objection-text {
+        border-left: none;
+        border-top: 4px solid var(--gold);
+        padding-left: 0;
+        padding-top: 1.5rem;
+        text-align: center;
+      }
+    }
+
+    /* ===== FAQ ===== */
+    .faq-list {
+      max-width: 800px;
+      margin: 2rem auto;
+    }
+
+    .faq-item {
+      background: white;
+      border: 1px solid var(--sand);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--cream-tint);
+      transition: background 0.2s ease;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--burgundy);
+    }
+
+    .faq-question:hover {
+      background: var(--cream);
+    }
+
+    .faq-toggle {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--gold);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-toggle {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      color: var(--burgundy-soft);
+      line-height: 1.7;
+    }
+
+    .faq-item.open .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 500px;
+    }
+
+    /* ===== FINAL CTA SECTION ===== */
+    .final-cta-section {
+      background: var(--cream);
+      text-align: center;
+      padding: 80px 2rem;
+    }
+
+    .final-cta-section h2 {
+      margin-bottom: 2rem;
+    }
+
+    .final-cta-button {
+      background: var(--gold);
+      color: var(--burgundy);
+      padding: 1.2rem 3rem;
+      border-radius: 50px;
+      border: none;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(195, 152, 66, 0.3);
+    }
+
+    .final-cta-button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(195, 152, 66, 0.4);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--cream-tint);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--sand);
+      border-top: 1px solid var(--sand);
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes checkmarkDraw {
+      0% {
+        stroke-dashoffset: 50;
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+    }
+
+    .benefit-check svg {
+      animation: checkmarkDraw 0.6s ease-out forwards;
+    }
+
+    .benefit-item:nth-child(1) .benefit-check svg {
+      animation-delay: 0.2s;
+    }
+
+    .benefit-item:nth-child(2) .benefit-check svg {
+      animation-delay: 0.4s;
+    }
+
+    .benefit-item:nth-child(3) .benefit-check svg {
+      animation-delay: 0.6s;
+    }
+
+    @keyframes countUp {
+      from { counter-increment: none; }
+      to { counter-increment: counter; }
+    }
+
+    .stat-number {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 2.5rem;
+      color: var(--gold);
+    }
+
+    .proof-stat {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--sand);
+      display: inline-block;
+      margin: 0 1rem;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 60px 1.5rem;
+      }
+      .proof-stat {
+        display: block;
+        margin: 1rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STICKY NAV -->
+  <nav id="mainNav">
+    <div class="nav-content">
+      <div class="nav-links">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#benefits">Benefits</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <button class="cta-button" onclick="document.getElementById('hero-cta').click()">Book a Call</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Intake Automation for Coaches</div>
+      <h1>Never Lose a Lead to <span class="underline-word">Slow</span> Follow-Up Again</h1>
+      <p class="promise">Right now, leads go quiet because no one's following up consistently. The Right Hand does that follow up for you, quietly, from the first message to the day they're onboarded.</p>
+      <button class="hero-cta" id="hero-cta" onclick="scrollToBooking()">Book a Call and See Your Intake System Run</button>
+    </div>
+  </section>
+
+  <!-- PROMISE / HOW IT WORKS -->
+  <section id="how-it-works">
+    <div class="section-content">
+      <h2>How It Works</h2>
+      <p style="max-width: 700px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8;">
+        From the moment a prospect reaches out, The Right Hand takes over. It captures every lead, sends the right follow-up at the right time, books calls on your calendar, handles no-shows, and gets new clients onboarded—all while you focus on coaching.
+      </p>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section id="benefits">
+    <div class="section-content">
+      <h2>Benefits</h2>
+      <div class="benefits-grid">
+
+        <div class="benefit-item">
+          <h3>
+            <span class="benefit-check">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#C39842" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="50">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            Every Lead Gets Followed Up
+          </h3>
+          <p>Every lead gets followed up with automatically, so fewer people go cold before you ever get them on a call.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3>
+            <span class="benefit-check">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#C39842" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="50">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            Your Calendar Stops Leaking
+          </h3>
+          <p>No shows and no responses get a second nudge on their own, so your calendar stops leaking booked slots.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3>
+            <span class="benefit-check">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#C39842" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="50">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            One Place To See Everything
+          </h3>
+          <p>You always know where every lead stands without opening five apps or chasing down a status yourself.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section id="testimonial">
+    <div class="section-content">
+      <h2 style="text-align: center;">Real Results</h2>
+      <div class="testimonial-card">
+        <div class="quote">"My follow-up was scattered across email, DMs, and my own brain. Three months with The Right Hand in place, and I recovered three clients I would've otherwise lost to crickets. It's not software—it feels like having a trusted team member who actually cares about my business."</div>
+        <div class="attribution">Sarah Chen</div>
+        <div class="role">Health Coach, Toronto</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJECTION KILLER -->
+  <section class="objection-section">
+    <div class="section-content">
+      <h2>This Isn't What You Think It Is</h2>
+      <p class="objection-text">This isn't another lead source. It's what happens to the leads you already have. The cost is measured against the clients you're currently losing to slow follow-up, not against getting more traffic. You're recovering revenue that's already yours—you're just not capturing it yet.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="section-content">
+      <h2>Questions?</h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>How long does it take to set up?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">We handle the setup. You're live within 2–3 weeks, fully integrated with your email, calendar, and booking system. No technical work on your end.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>What if I use Calendly / GoHighLevel / other tools?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">The Right Hand works with whatever you're already using—Gmail, Calendly, Zoom, Acuity, Google Calendar, you name it. We don't replace your stack; we make it smarter.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>How much does it cost?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">$8,000–$15,000 to build your system, then $750–$1,500/month to keep it running, optimized, and tuned to your business. No hidden fees, no per-lead charges.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>What if I want to customize it more?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">We can. Workflows, sequences, triggers—all customizable. We design it for you, not you for the system.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>What's included in the retainer?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">Monitoring the system, tweaking sequences based on your results, adding new tools as your business grows, handling support questions, and quarterly reviews to keep everything running at peak.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta-section">
+    <h2>See Your Intake System in Action</h2>
+    <p style="max-width: 600px; margin: 0 auto 2rem; font-size: 1.1rem; color: var(--burgundy-soft);">Book a call and I'll show you exactly how this works for your business, what it'll cost, and what you'll recover from day one.</p>
+    <button class="final-cta-button" onclick="document.getElementById('hero-cta').click()">Book a Call and See Your Intake System Run</button>
+  </section>
+
+  <!-- BOOKING MODAL -->
+  <div id="bookingModal" class="booking-modal">
+    <div class="booking-content">
+      <div id="bookingForm">
+        <h3>Schedule Your Coaching Call</h3>
+        <p>Let's find a time that works for you. Fill in your details below.</p>
+
+        <form id="callBookingForm">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="Jane Doe">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="jane@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="timezone">Your Timezone</label>
+            <select id="timezone" name="timezone" required>
+              <option value="">Auto-detect...</option>
+              <option value="America/New_York">Eastern (EST/EDT)</option>
+              <option value="America/Chicago">Central (CST/CDT)</option>
+              <option value="America/Denver">Mountain (MST/MDT)</option>
+              <option value="America/Los_Angeles">Pacific (PST/PDT)</option>
+              <option value="America/Anchorage">Alaska</option>
+              <option value="Pacific/Honolulu">Hawaii</option>
+              <option value="Europe/London">London (GMT/BST)</option>
+              <option value="Europe/Paris">Central European (CET/CEST)</option>
+              <option value="Australia/Sydney">Sydney (AEDT/AEST)</option>
+            </select>
+            <small id="timezoneInfo" style="color: var(--sand); display: none; margin-top: 0.3rem; font-size: 0.85rem;"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="preferredDate">Preferred Date (Tue, Wed, Thu, Sun)</label>
+            <input type="date" id="preferredDate" name="preferredDate" required>
+            <small id="dateError" style="color: var(--gold); display: none; margin-top: 0.3rem; font-size: 0.85rem;">Please select Tuesday, Wednesday, Thursday, or Sunday</small>
+          </div>
+
+          <div class="form-group">
+            <label for="preferredTime">Available Times</label>
+            <select id="preferredTime" name="preferredTime" required>
+              <option value="">Select a date first to see available times</option>
+            </select>
+            <small id="loadingTimes" style="color: var(--sand); display: none; margin-top: 0.3rem; font-size: 0.85rem;">Checking availability...</small>
+          </div>
+
+          <div class="booking-buttons">
+            <button type="submit" class="submit-btn">Confirm Booking</button>
+            <button type="button" class="close-btn" onclick="closeBookingModal()">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="bookingLoading" class="booking-loading">
+        <div class="spinner"></div>
+        <p>Scheduling your call...</p>
+      </div>
+
+      <div id="bookingSuccess" class="booking-success">
+        <div class="checkmark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3>Call Scheduled!</h3>
+        <p id="successMessage">Check your email for the confirmation and calendar invitation.</p>
+        <button class="submit-btn" onclick="closeBookingModal()" style="width: 100%; padding: 0.75rem;">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 The Right Hand. Built for coaches who want their follow-up to work while they coach.</p>
+  </footer>
+
+  <script>
+    // N8N Webhook URLs
+    const N8N_BOOK_CALL_URL = 'https://aisilentpartner.app.n8n.cloud/webhook/w5VDEsHKKm54WPGf';
+    const N8N_CHECK_AVAIL_URL = 'https://aisilentpartner.app.n8n.cloud/webhook/x1bSDUVLzjQXf7MD';
+
+    // Auto-detect timezone on page load
+    function detectAndSetTimezone() {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const tzSelect = document.getElementById('timezone');
+      const tzInfo = document.getElementById('timezoneInfo');
+
+      // Map common timezones to our dropdown options
+      const tzMap = {
+        'America/New_York': 'America/New_York',
+        'America/Chicago': 'America/Chicago',
+        'America/Denver': 'America/Denver',
+        'America/Los_Angeles': 'America/Los_Angeles',
+        'America/Anchorage': 'America/Anchorage',
+        'Pacific/Honolulu': 'Pacific/Honolulu',
+        'Europe/London': 'Europe/London',
+        'Europe/Paris': 'Europe/Paris',
+        'Australia/Sydney': 'Australia/Sydney'
+      };
+
+      if (tzMap[tz]) {
+        tzSelect.value = tz;
+      } else {
+        // Try to match region
+        for (let [key, value] of Object.entries(tzMap)) {
+          if (tz.includes(key.split('/')[1])) {
+            tzSelect.value = key;
+            break;
+          }
+        }
+      }
+
+      updateTimezoneInfo();
+    }
+
+    function updateTimezoneInfo() {
+      const tzSelect = document.getElementById('timezone');
+      const tzInfo = document.getElementById('timezoneInfo');
+      if (tzSelect.value) {
+        const tz = tzSelect.value.split('/')[1].replace(/_/g, ' ');
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat('en-US', { timeZone: tzSelect.value, hour: '2-digit', minute: '2-digit', hour12: true });
+        const localTime = formatter.format(now);
+        tzInfo.textContent = `Your timezone: ${tz} (Currently ${localTime})`;
+        tzInfo.style.display = 'block';
+      }
+    }
+
+    document.getElementById('timezone')?.addEventListener('change', updateTimezoneInfo);
+
+    // Open booking modal
+    function scrollToBooking() {
+      document.getElementById('bookingModal').classList.add('open');
+      detectAndSetTimezone();
+      // Set minimum date to tomorrow
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const minDate = tomorrow.toISOString().split('T')[0];
+      document.getElementById('preferredDate').min = minDate;
+    }
+
+    // Close booking modal
+    function closeBookingModal() {
+      const modal = document.getElementById('bookingModal');
+      modal.classList.remove('open');
+      // Reset form
+      document.getElementById('callBookingForm').reset();
+      document.getElementById('bookingForm').style.display = 'block';
+      document.getElementById('bookingLoading').classList.remove('show');
+      document.getElementById('bookingSuccess').classList.remove('show');
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('bookingModal')?.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeBookingModal();
+      }
+    });
+
+    // Validate date is Tue/Wed/Thu/Sun
+    function isValidBookingDay(dateString) {
+      const date = new Date(dateString + 'T00:00:00');
+      const dayOfWeek = date.getDay();
+      const validDays = [0, 2, 3, 4]; // Sunday, Tuesday, Wednesday, Thursday
+      return validDays.includes(dayOfWeek);
+    }
+
+    function getDateWarning(dateString) {
+      const date = new Date(dateString + 'T00:00:00');
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      return `${days[date.getDay()]} is not available. Please choose Tuesday, Wednesday, Thursday, or Sunday.`;
+    }
+
+    // Load available times when date changes
+    async function loadAvailableTimes(dateString) {
+      const timeSelect = document.getElementById('preferredTime');
+      const loadingEl = document.getElementById('loadingTimes');
+      const tzSelect = document.getElementById('timezone');
+      const errorEl = document.getElementById('dateError');
+
+      errorEl.style.display = 'none';
+
+      if (!dateString) {
+        timeSelect.innerHTML = '<option value="">Select a date first to see available times</option>';
+        return;
+      }
+
+      if (!isValidBookingDay(dateString)) {
+        errorEl.textContent = getDateWarning(dateString);
+        errorEl.style.display = 'block';
+        timeSelect.innerHTML = '<option value="">Invalid day - choose Tue/Wed/Thu/Sun</option>';
+        return;
+      }
+
+      loadingEl.style.display = 'block';
+      timeSelect.innerHTML = '<option value="">Loading available times...</option>';
+
+      try {
+        const response = await fetch(N8N_CHECK_AVAIL_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            date: dateString,
+            timezone: tzSelect.value || 'America/New_York'
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.availableSlots && data.availableSlots.length > 0) {
+          timeSelect.innerHTML = '<option value="">Select a time...</option>';
+          data.availableSlots.forEach(time => {
+            const [hour, min] = time.split(':');
+            const hour12 = parseInt(hour) > 12 ? parseInt(hour) - 12 : (parseInt(hour) === 0 ? 12 : parseInt(hour));
+            const ampm = parseInt(hour) >= 12 ? 'PM' : 'AM';
+            const label = `${hour12}:${min} ${ampm}`;
+            const option = document.createElement('option');
+            option.value = time;
+            option.textContent = label;
+            timeSelect.appendChild(option);
+          });
+        } else {
+          timeSelect.innerHTML = '<option value="">No available times on this date</option>';
+        }
+      } catch (error) {
+        console.error('Error loading availability:', error);
+        timeSelect.innerHTML = '<option value="">Error checking availability. Try another date.</option>';
+      }
+
+      loadingEl.style.display = 'none';
+    }
+
+    // Date change handler
+    document.getElementById('preferredDate')?.addEventListener('change', function() {
+      loadAvailableTimes(this.value);
+    });
+
+    // Handle booking form submission
+    document.getElementById('callBookingForm')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const preferredDate = document.getElementById('preferredDate').value;
+      const preferredTime = document.getElementById('preferredTime').value;
+      const timezone = document.getElementById('timezone').value || 'America/New_York';
+
+      if (!isValidBookingDay(preferredDate)) {
+        alert(getDateWarning(preferredDate));
+        return;
+      }
+
+      if (!preferredTime) {
+        alert('Please select an available time.');
+        return;
+      }
+
+      document.getElementById('bookingForm').style.display = 'none';
+      document.getElementById('bookingLoading').classList.add('show');
+
+      try {
+        const response = await fetch(N8N_BOOK_CALL_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name,
+            email,
+            preferredDate,
+            preferredTime,
+            timezone
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          document.getElementById('bookingLoading').classList.remove('show');
+          document.getElementById('bookingSuccess').classList.add('show');
+
+          const [hour, min] = preferredTime.split(':');
+          const hour12 = parseInt(hour) > 12 ? parseInt(hour) - 12 : (parseInt(hour) === 0 ? 12 : parseInt(hour));
+          const ampm = parseInt(hour) >= 12 ? 'PM' : 'AM';
+          document.getElementById('successMessage').textContent = `Call scheduled for ${preferredDate} at ${hour12}:${min} ${ampm}. Check your email for the calendar invitation.`;
+        } else {
+          document.getElementById('bookingLoading').classList.remove('show');
+          alert(data.message || 'Booking failed. Please try again.');
+          document.getElementById('bookingForm').style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Booking error:', error);
+        document.getElementById('bookingLoading').classList.remove('show');
+        alert('Connection error. Please try again or email hello@doresaibrahim.com.');
+        document.getElementById('bookingForm').style.display = 'block';
+      }
+    });
+
+    // FAQ Toggle
+    function toggleFaq(element) {
+      element.closest('.faq-item').classList.toggle('open');
+    }
+
+    // Intersection Observer for fade-up animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.section-content').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
