@@ -620,10 +620,69 @@
     font-style: italic;
   }
 
+  /* CTA Section */
+  .cta-section {
+    background: var(--burgundy);
+    border-radius: 10px;
+    padding: 40px 36px;
+    margin-top: 30px;
+    text-align: center;
+  }
+  .cta-section h2 {
+    color: var(--blush);
+    font-size: 24px;
+    margin: 0 0 16px 0;
+    font-weight: 700;
+  }
+  .cta-section p {
+    color: var(--blush);
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0 0 12px 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-button {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--burgundy);
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 12px;
+    letter-spacing: 0.02em;
+    transition: background-color 0.2s ease;
+  }
+  .cta-button:hover {
+    background: #d4ab56;
+  }
+
   @media (max-width: 900px) {
     .kpis { grid-template-columns: repeat(2, 1fr); }
     .board { grid-template-columns: 1fr; }
     .legend { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .cta-section {
+      padding: 28px 20px;
+      margin-top: 24px;
+    }
+    .cta-section h2 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    .cta-section p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .cta-button {
+      padding: 12px 24px;
+      font-size: 13px;
+    }
   }
 </style>
 </head>
@@ -708,6 +767,13 @@
             <li>SMS and AI voice call consent, carrier registration, and legal review are handled before any of this goes live for you</li>
           </ul>
         </div>
+      </div>
+
+      <div class="cta-section">
+        <h2>Ready to see how this could work for your business?</h2>
+        <p>The Right Hand is built for established coaches and consultants who are profitable but have become the bottleneck in their own business. If you want to automate your intake, book more calls, and spend less time chasing leads, let's talk.</p>
+        <p>Book a quick call to explore whether The Right Hand is a fit, and ask about founding pricing through September 1st.</p>
+        <a href="https://clients.profitautomationacademy.com/widget/booking/IDV7xsrq3kfXBUBADJRC" class="cta-button" target="_blank">Schedule a call</a>
       </div>
     </div>
 
