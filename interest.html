@@ -1044,8 +1044,11 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>&copy; 2025 The Right Hand. Built for coaches who want their follow-up to work while they coach.</p>
+    <p>Built for coaches who want their follow-up to work while they coach.</p>
+    <p>&copy; <span class="copyright-year"></span> The Right Hand. All rights reserved.</p>
   </footer>
+
+  <script>document.querySelectorAll('.copyright-year').forEach(function(el) { el.textContent = new Date().getFullYear(); });</script>
 
   <script>
     // N8N Webhook URLs
