@@ -83,6 +83,18 @@
   }
   .hero strong { color: var(--navy); }
 
+  .trust-banner {
+    background: var(--blush);
+    border-left: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 16px 22px;
+    margin-bottom: 20px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--navy);
+  }
+  .trust-banner strong { color: var(--burgundy); }
+
   /* Tab nav */
   .tabnav {
     display: inline-flex;
@@ -702,6 +714,10 @@
       <strong>The Right Hand</strong> is a done for you intake system that catches a lead the moment they reach out, follows up automatically, books the call, brings back no-shows, and gets a new client onboarded. Six pieces, one pipeline, no manual chasing. Everything below is sample data so you can click around and see how it works before it is built for your business.
     </div>
 
+    <div class="trust-banner">
+      <strong>Nothing goes out under your name until you approve it.</strong> Every message is drafted from your own Blueprint answers, in your voice, then held in draft for your review. We don't turn anything on until you've read every message and marked it approved, exactly as written or however you've edited it. Try it yourself in the Template Review tab below.
+    </div>
+
     <div class="tabnav">
       <button class="tab-btn active" data-tab="frontdesk" onclick="showTab('frontdesk')">Front Desk</button>
       <button class="tab-btn" data-tab="blueprint" onclick="showTab('blueprint')">Your Blueprint</button>
@@ -749,6 +765,7 @@
         <div>
           <h3>What's real in production</h3>
           <ul>
+            <li>Every message template is drafted from your Blueprint answers and goes through your Template Review before it can send, nothing launches in your name without your sign off</li>
             <li>Leads move through these exact five stages automatically, no manual data entry</li>
             <li>The Catch asks a quick budget and fit question before a lead enters the full sequence, so leads who can't realistically afford the offer get routed to a lighter nurture track instead of the same high touch effort as a qualified lead</li>
             <li>Follow Through combines email and a two way AI text conversation, personalized to each lead, not copy paste templates</li>
@@ -839,7 +856,11 @@
 
     <!-- TEMPLATE REVIEW TAB -->
     <div class="tabpanel" id="tab-review">
-      <div class="panel-intro">Once your Blueprint is filled in, we draft the actual wording your leads and clients will see. You read it over, mark it reviewed, or edit it to sound more like you. Shown here for the same sample client, Maya Chen.</div>
+      <div class="panel-intro">Once your Blueprint is filled in, we draft the actual wording your leads and clients will see, in your voice, pulled from your own Blueprint answers. Nothing below is live. Every message stays in draft, unsent, until you approve it here, exactly as written or however you've edited it. Shown here for the same sample client, Maya Chen.</div>
+
+      <div class="trust-banner">
+        <strong>This is the approval gate, not a formality.</strong> Your real Right Hand will not send a single message until you've marked it reviewed. If a message doesn't sound like you, edit it right in the box below, we'll only send what you've signed off on.
+      </div>
 
       <div class="card" id="reviewCard1">
         <div class="card-head"><h2>The Follow Through: Email</h2><span class="status-tag" id="reviewTag1">Awaiting your review</span></div>
@@ -912,7 +933,7 @@
 
   function demoSubmitReview() {
     var wrap = document.getElementById('tab-review');
-    wrap.innerHTML = '<div class="done-box"><strong>Thank you, your review is in.</strong><br>In your real Right Hand, we take it from here. If you edited anything, we give it a quick look before it goes live.</div>';
+    wrap.innerHTML = '<div class="done-box"><strong>Thank you, your review is in.</strong><br>In your real Right Hand, nothing goes live until this step is done. If you edited anything, we give it a quick look for formatting, then it launches in your voice, exactly as you approved it.</div>';
   }
 
   var STAGES = ["catch","followthrough","handshake","secondchance","welcome"];
