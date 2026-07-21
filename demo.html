@@ -348,6 +348,33 @@
     max-width: 680px;
   }
 
+  .site-footer {
+    border-top: 1px solid var(--line);
+    background: rgba(255, 253, 249, 0.8);
+    padding: 26px 0 34px;
+    margin-top: 8px;
+  }
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .footer-text {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .footer-link {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--accent-deep);
+    text-decoration: none;
+  }
+  .footer-link:hover { color: var(--accent); }
+
   @media (max-width: 1000px) {
     .stack { grid-template-columns: repeat(3, minmax(140px, 1fr)); }
     .grid { grid-template-columns: 1fr; }
@@ -368,7 +395,7 @@
       <div class="badge">Interactive Demo</div>
       <div class="top-actions">
         <a class="btn btn-ghost" href="index.html">Back to landing page</a>
-        <a class="btn btn-main" href="https://righthandintake.com/">Book a call</a>
+        <a class="btn btn-main" href="https://clients.profitautomationacademy.com/widget/booking/IDV7xsrq3kfXBUBADJRC">Book a call</a>
       </div>
     </div>
   </header>
@@ -450,10 +477,17 @@
 
       <div class="foot-cta">
         <p>This starter setup focuses on one bottleneck first and gives owners the operational view they actually need every day.</p>
-        <a class="btn btn-main" href="https://righthandintake.com/">Book a starter implementation call</a>
+        <a class="btn btn-main" href="https://clients.profitautomationacademy.com/widget/booking/IDV7xsrq3kfXBUBADJRC">Book a starter implementation call</a>
       </div>
     </div>
   </section>
+
+  <footer class="site-footer">
+    <div class="wrap footer-row">
+      <div class="footer-text">&copy; 2026 The Right Hand. Interactive demo with sample data.</div>
+      <a class="footer-link" href="https://clients.profitautomationacademy.com/widget/booking/IDV7xsrq3kfXBUBADJRC">Book your starter call</a>
+    </div>
+  </footer>
 
 <script>
   const scenarios = {
