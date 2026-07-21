@@ -231,15 +231,295 @@
 
   .out {
     margin-top: 14px;
-    background: #101112;
-    color: #e8f2f2;
-    border-radius: 12px;
-    padding: 14px;
-    min-height: 160px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    border: 1px solid #4a1b4c;
+    background: #2f0d30;
+    border-radius: 14px;
+    min-height: 360px;
+    overflow: hidden;
+  }
+  .slack-shell {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    min-height: 360px;
+  }
+  .slack-side {
+    background: #3b0f3d;
+    color: rgba(255, 255, 255, 0.86);
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 10px 10px 12px;
+  }
+  .ws-title {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .ws-meta {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.62);
+    margin-bottom: 12px;
+  }
+  .chan-group {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 10px 0 6px;
+  }
+  .chan {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    padding: 6px 7px;
+    border-radius: 7px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .chan .chan-name { flex: 1; }
+  .chan-badge {
+    min-width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 800;
+    display: grid;
+    place-items: center;
+    color: #2a082c;
+    background: #f4c95f;
+    padding: 0 5px;
+  }
+  .chan.active {
+    background: #10645f;
+    color: #fff;
+    font-weight: 700;
+  }
+  .chan-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #29b3ac;
+  }
+  .slack-main {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background: #2f0d30;
+  }
+  .slack-head {
+    padding: 9px 12px;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    background: #3d1140;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .slack-head .channel-name {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+  .slack-head .channel-meta {
+    font-size: 10px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .slack-body {
+    padding: 12px;
+    display: grid;
+    gap: 12px;
+    background: linear-gradient(180deg, #3a123c 0%, #2f0d30 100%);
+    align-content: start;
+  }
+  .day-sep {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.58);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .day-sep::before,
+  .day-sep::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .msg {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 10px;
+    align-items: start;
+    opacity: 0;
+    transform: translateY(6px);
+    animation: msgIn 320ms ease forwards;
+    animation-delay: calc(var(--stagger, 0) * 70ms + 80ms);
+  }
+  .avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: #fff;
+    background: #0b7e7a;
+  }
+  .msg.bot .avatar { background: #bb8f34; color: #201300; }
+  .msg.alert .avatar { background: #bf374f; }
+  .msg-card {
+    background: rgba(255, 255, 255, 0.11);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    padding: 9px 10px;
+  }
+  .meta {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+  .from {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .time {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .text {
+    color: #f5edf4;
     font-size: 12px;
     line-height: 1.45;
     white-space: pre-line;
+  }
+  .msg-footer {
+    margin-top: 7px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .reaction {
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-size: 10px;
+    color: #f0e5ef;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .thread-link {
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    color: #7fd6d1;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .thread-link:hover { color: #b6f0ec; }
+  .composer {
+    margin: 10px 12px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.26);
+    border-radius: 10px;
+    padding: 8px 10px;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .composer .hint-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    color: #2f0d30;
+    background: #c8edea;
+    font-weight: 800;
+  }
+
+  .thread-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(22, 7, 23, 0.62);
+    z-index: 40;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .thread-overlay.open { display: flex; }
+  .thread-modal {
+    width: min(560px, 96vw);
+    background: #fffdf9;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.24);
+    overflow: hidden;
+  }
+  .thread-modal-head {
+    background: #f5efe8;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+  .thread-modal-head strong {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #432a21;
+  }
+  .thread-close {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    color: #4d3e37;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .thread-modal-body {
+    padding: 14px;
+    font-size: 13px;
+    color: #3d3430;
+    line-height: 1.5;
+  }
+  .thread-note {
+    margin-top: 10px;
+    font-size: 11px;
+    color: #6c5d56;
+    background: #f8f3eb;
+    border: 1px solid #eadfce;
+    border-radius: 8px;
+    padding: 9px 10px;
+  }
+
+  @keyframes msgIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .kpi-grid {
@@ -385,6 +665,8 @@
     .kpi-grid, .projection { grid-template-columns: 1fr; }
     .row { grid-template-columns: 1fr; }
     .val { text-align: left; }
+    .slack-shell { grid-template-columns: 1fr; }
+    .slack-side { display: none; }
   }
 </style>
 </head>
@@ -489,6 +771,16 @@
     </div>
   </footer>
 
+  <div class="thread-overlay" id="threadOverlay" role="dialog" aria-modal="true" aria-labelledby="threadModalTitle">
+    <div class="thread-modal">
+      <div class="thread-modal-head">
+        <strong id="threadModalTitle">Thread Preview</strong>
+        <button class="thread-close" type="button" id="threadCloseBtn">Close</button>
+      </div>
+      <div class="thread-modal-body" id="threadModalBody"></div>
+    </div>
+  </div>
+
 <script>
   const scenarios = {
     daily: {
@@ -499,7 +791,17 @@
         ["LLM", "Build one concise owner brief"],
         ["Slack", "Deliver morning summary"]
       ],
-      output: "06:00 AM Owner Brief\\n\\nToday: 5 calendar events, 8 priority tasks.\\nTop 3 priorities:\\n1) Client onboarding packet due by 10:30 AM.\\n2) Follow-up queue has 4 high-intent leads waiting 24h+.\\n3) Stripe had 2 failed renewals; recovery messages queued.\\n\\nRisk flag: Afternoon block has no buffer between calls.",
+      channel: "#owner-brief",
+      unread: {
+        "#owner-brief": 0,
+        "#ops-alerts": 2,
+        "#money-pulse": 1
+      },
+      output: [
+        { from: "Right Hand", time: "6:00 AM", role: "bot", text: "Morning brief is ready.\\nToday: 5 calendar events and 8 priority tasks.", reactions: ["eye 2", "white_check_mark 1"] },
+        { from: "Right Hand", time: "6:00 AM", role: "bot", text: "Top 3 priorities:\\n1) Client onboarding packet due by 10:30 AM.\\n2) Follow-up queue has 4 high-intent leads waiting 24h+.\\n3) Stripe had 2 failed renewals; recovery messages queued.", thread: "2 replies", threadDetail: "Thread detail: In production this opens the full context for the priority list with source links back to Calendar and Notion entries.\\n\\nReply 1: Added direct links to task IDs.\\nReply 2: Confirmed onboarding packet owner and due-time reminder." },
+        { from: "Ops Alert", time: "6:01 AM", role: "alert", text: "Risk flag: Afternoon block has no buffer between calls.", reactions: ["rotating_light 1"] }
+      ],
       kpis: [
         ["Yesterday net revenue", "$2,984"],
         ["7-day net revenue", "$19,442"],
@@ -515,7 +817,17 @@
         ["Notion", "Update follow-up table"],
         ["Slack", "Send only critical alerts"]
       ],
-      output: "Inbox Manager Output\\n\\nEmail: invoice dispute from client@acme.com\\nRoute: Billing (high priority)\\nActions: \\n- Gmail label set: Billing\\n- Summary added to Notion: Finance Queue\\n- Slack alert sent to #ops-alerts\\n\\nEmail: newsletter request\\nRoute: General\\nAction: queued, no alert.",
+      channel: "#ops-alerts",
+      unread: {
+        "#owner-brief": 1,
+        "#ops-alerts": 0,
+        "#money-pulse": 3
+      },
+      output: [
+        { from: "Right Hand", time: "11:12 AM", role: "bot", text: "New message triaged from client@acme.com.\\nRoute: Billing (high priority).", reactions: ["eyes 1"] },
+        { from: "Right Hand", time: "11:12 AM", role: "bot", text: "Actions completed:\\n- Gmail label set: Billing\\n- Notion updated: Finance Queue\\n- Escalation posted to this channel", thread: "1 reply", threadDetail: "Thread detail: The billing handoff includes a one-line summary, urgency score, and original email link.\\n\\nReply: Escalation owner acknowledged in #ops-alerts." },
+        { from: "Right Hand", time: "11:15 AM", role: "bot", text: "Newsletter request routed to General queue. No alert needed.", reactions: ["thumbsup 1"] }
+      ],
       kpis: [
         ["Inbox triaged today", "68"],
         ["Escalated alerts", "7"],
@@ -531,7 +843,17 @@
         ["Simulation", "Project 30/60/90 scenarios"],
         ["Slack", "Daily money pulse + anomaly alerts"]
       ],
-      output: "Money Pulse\\n\\nYesterday net revenue: $2,984\\nNew customers: 3\\nRefunds: 1 ($149)\\nFailed payments: 4 (2 recovered)\\n\\n7-day trend: +12.4% vs previous week.\\nWatch list: churn rose from 6% to 8% this month.",
+      channel: "#money-pulse",
+      unread: {
+        "#owner-brief": 2,
+        "#ops-alerts": 1,
+        "#money-pulse": 0
+      },
+      output: [
+        { from: "Right Hand", time: "7:05 AM", role: "bot", text: "Daily money pulse posted.\\nYesterday net revenue: $2,984\\nNew customers: 3\\nRefunds: 1 ($149)\\nFailed payments: 4 (2 recovered)", reactions: ["chart_with_upwards_trend 2"] },
+        { from: "Right Hand", time: "7:05 AM", role: "bot", text: "7-day trend: +12.4% vs previous week.", thread: "Open detail", threadDetail: "Thread detail: 7-day trend is calculated from Stripe gross minus refunds and failed payments, then rolled into the Sheets ledger for the Notion snapshot.\\n\\nDetail: 4 failed payments, 2 recovered within 24 hours." },
+        { from: "Ops Alert", time: "7:06 AM", role: "alert", text: "Watch list: churn rose from 6% to 8% this month.", reactions: ["warning 1"] }
+      ],
       kpis: [
         ["Failed payments (30d)", "27"],
         ["Recovered payments", "11"],
@@ -545,6 +867,32 @@
   const outEl = document.getElementById("out");
   const kpiEl = document.getElementById("kpis");
   const tabs = Array.from(document.querySelectorAll(".tab"));
+  const threadOverlay = document.getElementById("threadOverlay");
+  const threadModalBody = document.getElementById("threadModalBody");
+  const threadCloseBtn = document.getElementById("threadCloseBtn");
+
+  function channelRow(label, activeChannel, unreadMap) {
+    const count = unreadMap && unreadMap[label] ? unreadMap[label] : 0;
+    return `
+      <div class="chan ${activeChannel === label ? "active" : ""}">
+        <span class="chan-dot"></span>
+        <span class="chan-name">${label.replace("#", "# ")}</span>
+        ${count > 0 ? `<span class="chan-badge">${count}</span>` : ""}
+      </div>
+    `;
+  }
+
+  function openThread(detailText) {
+    threadModalBody.innerHTML = `
+      <div>${detailText}</div>
+      <div class="thread-note">Demo note: this flyout represents the thread pane where operators review detail and reply without leaving the channel.</div>
+    `;
+    threadOverlay.classList.add("open");
+  }
+
+  function closeThread() {
+    threadOverlay.classList.remove("open");
+  }
 
   function renderScenario(name) {
     const s = scenarios[name];
@@ -555,7 +903,52 @@
       div.innerHTML = `<strong>${n[0]}</strong><span>${n[1]}</span>`;
       flowEl.appendChild(div);
     });
-    outEl.textContent = s.output;
+    outEl.innerHTML = `
+      <div class="slack-shell">
+        <aside class="slack-side">
+          <div class="ws-title">Right Hand Ops</div>
+          <div class="ws-meta">Demo Workspace</div>
+          <div class="chan-group">Channels</div>
+          ${channelRow("#owner-brief", s.channel, s.unread)}
+          ${channelRow("#ops-alerts", s.channel, s.unread)}
+          ${channelRow("#money-pulse", s.channel, s.unread)}
+          <div class="chan-group">Direct Messages</div>
+          <div class="chan">Doresa</div>
+          <div class="chan">Right Hand</div>
+        </aside>
+        <section class="slack-main">
+          <div class="slack-head">
+            <div class="channel-name">${s.channel || "#channel"}</div>
+            <div class="channel-meta">3 members • live preview</div>
+          </div>
+          <div class="slack-body">
+            <div class="day-sep">Today</div>
+            ${s.output.map((m, idx) => `
+              <div class="msg ${m.role || ""}" style="--stagger:${idx};">
+                <div class="avatar">${m.from === "Ops Alert" ? "!" : "RH"}</div>
+                <div class="msg-card">
+                  <div class="meta">
+                    <div class="from">${m.from}</div>
+                    <div class="time">${m.time}</div>
+                  </div>
+                  <div class="text">${m.text}</div>
+                  ${(m.reactions || m.thread) ? `
+                    <div class="msg-footer">
+                      ${(m.reactions || []).map((r) => `<span class="reaction">:${r}:</span>`).join("")}
+                      ${m.thread ? `<button type="button" class="thread-link" data-thread="${(m.threadDetail || "Thread details preview.").replace(/"/g, "&quot;")}">${m.thread}</button>` : ""}
+                    </div>
+                  ` : ""}
+                </div>
+              </div>
+            `).join("")}
+          </div>
+          <div class="composer">
+            <span>Message ${s.channel || "#channel"} (demo mode)</span>
+            <span class="hint-icon">+</span>
+          </div>
+        </section>
+      </div>
+    `;
     kpiEl.innerHTML = "";
     s.kpis.forEach(([l, v]) => {
       const card = document.createElement("div");
@@ -571,6 +964,21 @@
       btn.classList.add("active");
       renderScenario(btn.dataset.tab);
     });
+  });
+
+  outEl.addEventListener("click", (event) => {
+    const target = event.target;
+    if (target.classList.contains("thread-link")) {
+      openThread(target.getAttribute("data-thread") || "Thread details preview.");
+    }
+  });
+
+  threadCloseBtn.addEventListener("click", closeThread);
+  threadOverlay.addEventListener("click", (event) => {
+    if (event.target === threadOverlay) closeThread();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && threadOverlay.classList.contains("open")) closeThread();
   });
 
   const fields = {
