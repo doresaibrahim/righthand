@@ -1,1189 +1,626 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>The Right Hand Demo</title>
+<title>The Right Hand Interactive Demo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    color-scheme: light;
-    --navy: #0B1A2A;
-    --blush: #F7E9E8;
-    --off-white: #F3F3F5;
-    --slate: #4A5665;
-    --soft-blush: #EDE0DF;
-    --burgundy: #4A0024;
-    --mauve: #AA8B9B;
-    --gold: #C39842;
+    --cream: #f6f1e8;
+    --card: #fffdf9;
+    --ink: #1f1a18;
+    --muted: #625754;
+    --accent: #0b7e7a;
+    --accent-deep: #075f5c;
+    --gold: #bb8f34;
+    --line: #d7c9b5;
+    --shadow: rgba(20, 20, 20, 0.09);
+    --display: "Fraunces", serif;
+    --body: "Manrope", sans-serif;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    font-family: 'Lora', Georgia, serif;
-    background: var(--off-white);
-    color: var(--slate);
+    font-family: var(--body);
+    color: var(--ink);
+    background:
+      radial-gradient(1300px 500px at 10% -10%, rgba(11, 126, 122, 0.12), transparent 55%),
+      radial-gradient(900px 360px at 95% 0%, rgba(187, 143, 52, 0.12), transparent 55%),
+      var(--cream);
+    line-height: 1.55;
   }
-  h1, h2, h3, .label, button, .btn {
-    font-family: 'Poppins', Arial, sans-serif;
-  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
-  /* Top bar */
-  .topbar {
-    background: var(--navy);
-    padding: 20px 32px;
+  .top {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 253, 249, 0.76);
+    backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .top .wrap {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
     gap: 12px;
+    flex-wrap: wrap;
   }
-  .brand-block .kicker {
-    color: var(--gold);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .brand-block h1 {
-    color: var(--off-white);
-    font-size: 24px;
+  .brand {
+    font-family: var(--display);
+    font-size: 30px;
     font-weight: 700;
-    margin: 0;
-    letter-spacing: 0.01em;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
   }
-  .demo-badge {
-    background: var(--burgundy);
-    color: var(--blush);
+  .badge {
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 7px 14px;
+    color: var(--accent-deep);
+    font-weight: 800;
+    border: 1px solid rgba(11, 126, 122, 0.24);
+    background: rgba(11, 126, 122, 0.08);
     border-radius: 999px;
-    white-space: nowrap;
+    padding: 7px 12px;
   }
-
-  .wrap {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 28px 32px 60px 32px;
+  .top-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
   }
+  .btn {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 11px 16px;
+    transition: transform 120ms ease, box-shadow 120ms ease;
+  }
+  .btn-ghost {
+    color: var(--ink);
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+  .btn-main {
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+    box-shadow: 0 10px 22px rgba(11, 126, 122, 0.24);
+  }
+  .btn:hover { transform: translateY(-1px); }
 
   .hero {
-    background: #FFFFFF;
-    border-radius: 10px;
-    padding: 18px 22px;
-    margin-bottom: 20px;
-    font-size: 13.5px;
-    line-height: 1.7;
+    padding: 56px 0 20px;
   }
-  .hero strong { color: var(--navy); }
-
-  .trust-banner {
-    background: var(--blush);
-    border-left: 3px solid var(--gold);
-    border-radius: 10px;
-    padding: 16px 22px;
-    margin-bottom: 20px;
-    font-size: 13.5px;
-    line-height: 1.7;
-    color: var(--navy);
+  .hero-card {
+    background: var(--card);
+    border: 1px solid rgba(11, 126, 122, 0.2);
+    border-radius: 24px;
+    padding: 34px;
+    box-shadow: 0 16px 32px var(--shadow);
+    position: relative;
+    overflow: hidden;
   }
-  .trust-banner strong { color: var(--burgundy); }
+  .hero-card::after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    top: 18px;
+    width: 64px;
+    height: 14px;
+    background: rgba(187, 143, 52, 0.2);
+    border-radius: 2px;
+    transform: rotate(-6deg);
+  }
+  h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(34px, 5.6vw, 62px);
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+    max-width: 840px;
+  }
+  h1 em {
+    color: var(--accent);
+    font-style: normal;
+    display: block;
+    margin-top: 8px;
+  }
+  .sub {
+    margin: 22px 0 0;
+    max-width: 860px;
+    font-size: 19px;
+    color: var(--muted);
+  }
 
-  /* Tab nav */
-  .tabnav {
+  .stack {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(130px, 1fr));
+    gap: 10px;
+  }
+  .tool {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .sections { padding: 28px 0 50px; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 18px;
+  }
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 10px 26px var(--shadow);
+  }
+  .panel h2 {
+    margin: 0 0 6px;
+    font-family: var(--display);
+    letter-spacing: -0.02em;
+    font-size: 28px;
+  }
+  .panel p { margin: 0; color: var(--muted); }
+
+  .tabs {
+    margin-top: 14px;
     display: inline-flex;
-    background: #FFFFFF;
+    background: #fff;
+    border: 1px solid var(--line);
     border-radius: 999px;
     padding: 4px;
-    gap: 2px;
-    margin-bottom: 22px;
+    gap: 4px;
   }
-  .tab-btn {
+  .tab {
     border: none;
     background: transparent;
-    color: var(--slate);
-    font-size: 13px;
-    font-weight: 600;
-    padding: 10px 18px;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 800;
     border-radius: 999px;
+    padding: 10px 14px;
     cursor: pointer;
-    font-family: 'Poppins', Arial, sans-serif;
   }
-  .tab-btn:hover { background: var(--off-white); }
-  .tab-btn.active {
-    background: var(--navy);
-    color: var(--off-white);
+  .tab.active {
+    color: #fff;
+    background: var(--ink);
   }
-  .tabpanel { display: none; }
-  .tabpanel.active { display: block; }
 
-  /* KPI row */
-  .kpis {
+  .flow {
+    margin-top: 18px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 14px;
-    margin-bottom: 28px;
+    gap: 10px;
+  }
+  .node {
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .node strong { font-size: 13px; }
+  .node span { font-size: 12px; color: var(--muted); }
+  .node.active {
+    border-color: rgba(11, 126, 122, 0.35);
+    box-shadow: 0 0 0 2px rgba(11, 126, 122, 0.1) inset;
+    background: #fbfffe;
+  }
+
+  .out {
+    margin-top: 14px;
+    background: #101112;
+    color: #e8f2f2;
+    border-radius: 12px;
+    padding: 14px;
+    min-height: 160px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.45;
+    white-space: pre-line;
+  }
+
+  .kpi-grid {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
   .kpi {
-    background: #FFFFFF;
-    border-radius: 10px;
-    padding: 16px 18px;
-    border-top: 3px solid var(--mauve);
-  }
-  .kpi.revenue { border-top-color: var(--gold); background: var(--soft-blush); }
-  .kpi .kpi-label {
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--slate);
-    margin-bottom: 6px;
-  }
-  .kpi .kpi-value {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--navy);
-  }
-  .kpi .kpi-sub {
-    font-size: 11px;
-    color: var(--slate);
-    margin-top: 3px;
-  }
-
-  /* Range selector */
-  .range-row {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 16px;
-  }
-  .range-group {
-    display: inline-flex;
-    background: #FFFFFF;
-    border-radius: 999px;
-    padding: 4px;
-    gap: 2px;
-  }
-  .range-btn {
-    border: none;
-    background: transparent;
-    color: var(--slate);
-    font-size: 12px;
-    font-weight: 600;
-    padding: 7px 14px;
-    border-radius: 999px;
-    cursor: pointer;
-    font-family: 'Poppins', Arial, sans-serif;
-  }
-  .range-btn:hover { background: var(--off-white); }
-  .range-btn.active {
-    background: var(--navy);
-    color: var(--off-white);
-  }
-
-  /* Controls row */
-  .controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-  .controls h2 {
-    font-size: 16px;
-    color: var(--navy);
-    margin: 0;
-    font-weight: 700;
-  }
-  #simBtn {
-    background: var(--navy);
-    color: var(--off-white);
-    border: none;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 11px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-  }
-  #simBtn:hover { background: #14263c; }
-  #simBtn:disabled { background: var(--mauve); cursor: not-allowed; }
-  #resetBtn {
-    background: transparent;
-    color: var(--navy);
-    border: 1px solid var(--mauve);
-    font-size: 13px;
-    font-weight: 600;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-    margin-left: 8px;
-  }
-  #resetBtn:hover { background: var(--soft-blush); }
-  #resetBtn:disabled { color: var(--mauve); border-color: var(--soft-blush); cursor: not-allowed; }
-  .btn-row { display: flex; align-items: center; }
-
-  .caption {
-    background: var(--soft-blush);
-    border-left: 3px solid var(--gold);
-    padding: 10px 16px;
-    font-size: 13px;
-    color: var(--navy);
-    border-radius: 0 6px 6px 0;
-    margin-bottom: 18px;
-    min-height: 18px;
-    display: none;
-  }
-  .caption.show { display: block; }
-
-  /* Board */
-  .board {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
-  }
-  .col {
-    background: #FFFFFF;
-    border-radius: 10px;
-    padding: 12px;
-    min-height: 220px;
-  }
-  .col-head {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--soft-blush);
-  }
-  .col-head .col-name {
-    font-size: 12.5px;
-    font-weight: 600;
-    color: var(--navy);
-    margin-bottom: 3px;
-  }
-  .col-head .col-stats {
-    font-size: 11px;
-    color: var(--slate);
-  }
-  .col-head .col-stats b { color: var(--navy); }
-
-  .lead-card {
-    background: var(--off-white);
-    border-radius: 7px;
-    padding: 9px 10px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    border-left: 3px solid var(--mauve);
-    transition: box-shadow 0.15s ease;
-  }
-  .lead-card:hover { box-shadow: 0 0 0 1px var(--mauve) inset; }
-  .lead-card.welcome-card { border-left-color: var(--gold); }
-  .lead-card.secondchance-card { border-left-color: var(--mauve); }
-  .lead-card.secondchance-card .lead-note { color: var(--burgundy); font-weight: 500; }
-  .lead-card .lead-name {
-    font-family: 'Poppins', Arial, sans-serif;
-    font-size: 12.5px;
-    font-weight: 600;
-    color: var(--navy);
-  }
-  .lead-card .lead-value {
-    font-size: 11.5px;
-    color: var(--slate);
-    margin-top: 2px;
-  }
-  .lead-card .lead-note {
-    font-size: 10.5px;
-    color: var(--slate);
-    margin-top: 3px;
-    line-height: 1.35;
-  }
-  .source-tag {
-    display: inline-block;
-    font-family: 'Poppins', Arial, sans-serif;
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    color: var(--navy);
-    background: var(--soft-blush);
-    padding: 2px 7px;
-    border-radius: 4px;
-    margin-top: 4px;
-  }
-
-  /* Channels strip */
-  .channels {
-    background: #FFFFFF;
-    border-radius: 10px;
-    padding: 12px 18px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .channels .channels-label {
-    font-family: 'Poppins', Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--navy);
-    letter-spacing: 0.02em;
-    margin-right: 4px;
-  }
-  .channel-pill {
-    font-family: 'Poppins', Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--navy);
-    background: var(--blush);
-    padding: 5px 12px;
-    border-radius: 999px;
-  }
-  .channels-arrow {
-    color: var(--mauve);
-    font-size: 13px;
-    margin: 0 2px;
-  }
-  .channels .channels-dest {
-    font-family: 'Poppins', Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: #FFFFFF;
-    background: var(--navy);
-    padding: 5px 12px;
-    border-radius: 999px;
-  }
-  .lead-card.sim-active {
-    border-left-color: var(--gold);
-    box-shadow: 0 0 0 2px var(--gold) inset;
-  }
-  .empty-col {
-    font-size: 11px;
-    color: var(--mauve);
-    font-style: italic;
-    padding: 6px 2px;
-  }
-  .lead-card.notfit-card {
-    opacity: 0.6;
-    border-left-style: dashed;
-    border-left-color: var(--slate);
-  }
-  .lead-card.notfit-card .lead-value { display: none; }
-  .notfit-tag {
-    display: inline-block;
-    font-family: 'Poppins', Arial, sans-serif;
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    color: #FFFFFF;
-    background: var(--slate);
-    padding: 2px 7px;
-    border-radius: 4px;
-    margin-top: 4px;
-    margin-right: 4px;
-  }
-  .catch-note {
-    font-size: 12px;
-    color: var(--slate);
-    font-style: italic;
-    margin: -6px 0 16px 2px;
-  }
-
-  /* Legend / flag section */
-  .legend {
-    margin-top: 30px;
-    background: var(--navy);
-    border-radius: 10px;
-    padding: 20px 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-  .legend h3 {
-    color: var(--gold);
-    font-size: 12.5px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin: 0 0 8px 0;
-  }
-  .legend p, .legend li {
-    color: var(--blush);
-    font-size: 12px;
-    line-height: 1.6;
-    margin: 0 0 4px 0;
-  }
-  .legend ul { margin: 0; padding-left: 16px; }
-
-  /* Modal */
-  .overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(11,26,42,0.55);
-    align-items: center;
-    justify-content: center;
-    z-index: 50;
-  }
-  .overlay.show { display: flex; }
-  .modal {
-    background: #FFFFFF;
+    border: 1px solid var(--line);
+    background: #fff;
     border-radius: 12px;
-    padding: 24px 26px;
-    width: 360px;
-    max-width: 90vw;
+    padding: 12px;
   }
-  .modal h3 {
-    color: var(--navy);
-    font-size: 17px;
-    margin: 0 0 2px 0;
+  .kpi .l {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 800;
+    margin-bottom: 5px;
   }
-  .modal .modal-value {
-    color: var(--gold);
-    font-weight: 700;
-    font-family: 'Poppins', Arial, sans-serif;
-    font-size: 14px;
-    margin-bottom: 14px;
+  .kpi .v {
+    font-family: var(--display);
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
-  .timeline-item {
-    display: flex;
+
+  .sim {
+    margin-top: 20px;
+    border-top: 1px dashed var(--line);
+    padding-top: 16px;
+  }
+  .sim h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-family: var(--body);
+    letter-spacing: 0.01em;
+  }
+  .sliders { display: grid; gap: 12px; }
+  .row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr auto;
     gap: 10px;
-    margin-bottom: 10px;
+    align-items: center;
   }
-  .timeline-dot {
-    width: 9px; height: 9px; border-radius: 50%;
-    background: var(--mauve);
-    margin-top: 4px;
-    flex-shrink: 0;
-  }
-  .timeline-item.current .timeline-dot { background: var(--gold); }
-  .timeline-item .t-stage {
-    font-family: 'Poppins', Arial, sans-serif;
-    font-size: 12.5px;
-    font-weight: 600;
-    color: var(--navy);
-  }
-  .timeline-item .t-when {
+  .row label { font-size: 12px; font-weight: 700; }
+  input[type="range"] { width: 100%; }
+  .val {
     font-size: 11px;
-    color: var(--slate);
+    color: var(--muted);
+    min-width: 88px;
+    text-align: right;
   }
-  .modal-close {
-    margin-top: 8px;
-    background: var(--off-white);
-    border: none;
-    padding: 9px 16px;
-    border-radius: 7px;
-    font-size: 12.5px;
-    font-weight: 600;
-    color: var(--navy);
-    cursor: pointer;
-    width: 100%;
-  }
-
-  /* Shared card styles (Blueprint + Template Review tabs) */
-  .panel-intro {
-    font-size: 13.5px;
-    color: var(--slate);
-    margin-bottom: 20px;
-    line-height: 1.7;
-  }
-  .card {
-    background: #FFFFFF;
-    border-radius: 10px;
-    padding: 20px 22px;
-    margin-bottom: 18px;
-  }
-  .card h2 {
-    font-size: 15px;
-    color: var(--navy);
-    margin: 0 0 4px 0;
-    font-weight: 700;
-  }
-  .card .card-sub {
-    font-size: 12px;
-    color: var(--mauve);
-    margin-bottom: 14px;
-  }
-  .locked-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 14px;
-    font-size: 12.5px;
-    padding: 7px 0;
-    border-bottom: 1px solid var(--off-white);
-  }
-  .locked-row .k { color: var(--slate); flex-shrink: 0; }
-  .locked-row .v { color: var(--navy); font-weight: 600; text-align: right; min-width: 0; overflow-wrap: break-word; }
-  .field { margin-bottom: 16px; }
-  .field label {
-    display: block;
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--slate);
-    margin-bottom: 6px;
-  }
-  .field .hint {
-    font-size: 11.5px;
-    color: var(--mauve);
-    margin-bottom: 6px;
-    font-style: italic;
-  }
-  .field textarea, .field input {
-    width: 100%;
-    border: 1px solid var(--soft-blush);
-    border-radius: 7px;
-    padding: 9px 11px;
-    font-family: 'Lora', Georgia, serif;
-    font-size: 13px;
-    color: var(--navy);
-    background: #FFFFFF;
-  }
-  .field textarea { min-height: 64px; resize: vertical; }
-  .save-bar {
-    position: sticky;
-    bottom: 0;
-    background: #FFFFFF;
-    border-radius: 10px;
-    padding: 14px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 -2px 12px rgba(11,26,42,0.08);
-  }
-  .save-btn {
-    background: var(--gold);
-    color: var(--navy);
-    border: none;
-    padding: 11px 22px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  .save-status { font-size: 12px; }
-  .save-status.ok { color: #2f6f4f; }
-  .done-box {
-    background: #FFFFFF;
-    border-radius: 10px;
-    padding: 32px;
-    text-align: left;
-    font-size: 13.5px;
-    line-height: 1.7;
-    border-left: 3px solid var(--gold);
-  }
-  .status-tag {
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--mauve);
-  }
-  .status-tag.reviewed { color: var(--gold); }
-  .card.reviewed { border: 1px solid var(--gold); }
-  .card-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 4px;
-  }
-  .review-textarea {
-    width: 100%;
-    min-height: 120px;
-    border: 1px solid var(--soft-blush);
-    border-radius: 7px;
-    padding: 11px 13px;
-    font-family: 'Lora', Georgia, serif;
-    font-size: 13.5px;
-    line-height: 1.6;
-    color: var(--navy);
-    background: var(--off-white);
-    resize: vertical;
-    margin-bottom: 12px;
-  }
-  .card.reviewed .review-textarea { background: #FFFFFF; }
-  .card-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .mark-btn {
-    background: var(--navy);
-    color: var(--off-white);
-    border: none;
-    padding: 9px 16px;
-    border-radius: 7px;
-    font-size: 12.5px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .card.reviewed .mark-btn {
-    background: var(--soft-blush);
-    color: var(--gold);
-  }
-  .hint-small {
-    font-size: 11.5px;
-    color: var(--mauve);
-    font-style: italic;
-  }
-
-  /* CTA Section */
-  .cta-section {
-    background: var(--burgundy);
-    border-radius: 10px;
-    padding: 40px 36px;
-    margin-top: 30px;
-    text-align: center;
-  }
-  .cta-section h2 {
-    color: var(--blush);
-    font-size: 24px;
-    margin: 0 0 16px 0;
-    font-weight: 700;
-  }
-  .cta-section p {
-    color: var(--blush);
-    font-size: 15px;
-    line-height: 1.7;
-    margin: 0 0 12px 0;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .cta-button {
-    display: inline-block;
-    background: var(--gold);
-    color: var(--burgundy);
-    padding: 14px 32px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
+  .projection {
     margin-top: 12px;
-    letter-spacing: 0.02em;
-    transition: background-color 0.2s ease;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
   }
-  .cta-button:hover {
-    background: #d4ab56;
+  .proj {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .proj .t {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 5px;
+    font-weight: 800;
+  }
+  .proj .m {
+    font-family: var(--display);
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .proj .s { font-size: 11px; color: var(--muted); margin-top: 5px; }
+
+  .note {
+    margin-top: 18px;
+    background: rgba(187, 143, 52, 0.1);
+    border: 1px solid rgba(187, 143, 52, 0.22);
+    color: #594016;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 12px;
   }
 
-  @media (max-width: 900px) {
-    .kpis { grid-template-columns: repeat(2, 1fr); }
-    .board { grid-template-columns: 1fr; }
-    .legend { grid-template-columns: 1fr; }
+  .foot-cta {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .foot-cta p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 680px;
   }
 
-  @media (max-width: 600px) {
-    .cta-section {
-      padding: 28px 20px;
-      margin-top: 24px;
-    }
-    .cta-section h2 {
-      font-size: 20px;
-      margin-bottom: 12px;
-    }
-    .cta-section p {
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-    .cta-button {
-      padding: 12px 24px;
-      font-size: 13px;
-    }
+  @media (max-width: 1000px) {
+    .stack { grid-template-columns: repeat(3, minmax(140px, 1fr)); }
+    .grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .hero-card { padding: 24px 20px; }
+    .stack { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+    .kpi-grid, .projection { grid-template-columns: 1fr; }
+    .row { grid-template-columns: 1fr; }
+    .val { text-align: left; }
   }
 </style>
 </head>
 <body>
-
-  <div class="topbar">
-    <div class="brand-block">
-      <div class="kicker">AI Silent Partner</div>
-      <h1>The Right Hand</h1>
-    </div>
-    <div class="demo-badge">Demo, sample data</div>
-  </div>
-
-  <div class="wrap">
-
-    <div class="hero">
-      <strong>The Right Hand</strong> is a done for you intake system that catches a lead the moment they reach out, follows up automatically, books the call, brings back no-shows, and gets a new client onboarded. Six pieces, one pipeline, no manual chasing. Everything below is sample data so you can click around and see how it works before it is built for your business.
-    </div>
-
-    <div class="trust-banner">
-      <strong>Nothing goes out under your name until you approve it.</strong> Every message is drafted from your own Blueprint answers, in your voice, then held in draft for your review. We don't turn anything on until you've read every message and marked it approved, exactly as written or however you've edited it. Try it yourself in the Template Review tab below.
-    </div>
-
-    <div class="tabnav">
-      <button class="tab-btn active" data-tab="frontdesk" onclick="showTab('frontdesk')">Front Desk</button>
-      <button class="tab-btn" data-tab="blueprint" onclick="showTab('blueprint')">Your Blueprint</button>
-      <button class="tab-btn" data-tab="review" onclick="showTab('review')">Template Review</button>
-    </div>
-
-    <!-- FRONT DESK TAB -->
-    <div class="tabpanel active" id="tab-frontdesk">
-      <div class="range-row">
-        <div class="range-group" id="rangeGroup">
-          <button class="range-btn" data-days="7" onclick="setRange(7)">7 days</button>
-          <button class="range-btn active" data-days="30" onclick="setRange(30)">30 days</button>
-          <button class="range-btn" data-days="60" onclick="setRange(60)">60 days</button>
-          <button class="range-btn" data-days="90" onclick="setRange(90)">Quarter</button>
-          <button class="range-btn" data-days="365" onclick="setRange(365)">Year</button>
-        </div>
-      </div>
-      <div class="kpis" id="kpiRow"></div>
-
-      <div class="controls">
-        <h2>Pipeline</h2>
-        <div class="btn-row">
-          <button id="simBtn" onclick="runSimulation()">Simulate a new lead</button>
-          <button id="resetBtn" onclick="resetDemo()">Reset demo</button>
-        </div>
-      </div>
-      <div class="caption" id="caption"></div>
-
-      <div class="channels">
-        <span class="channels-label">Leads reach you through:</span>
-        <span class="channel-pill">Website form</span>
-        <span class="channel-pill">Instagram &amp; Facebook DMs</span>
-        <span class="channel-pill">Live chat</span>
-        <span class="channel-pill">Referral link</span>
-        <span class="channel-pill">Email reply</span>
-        <span class="channels-arrow">&#8594;</span>
-        <span class="channels-dest">All captured by The Catch</span>
-      </div>
-
-      <div class="catch-note">Before a lead moves to The Follow Through, The Catch asks one quick budget and fit question. Leads below the threshold are routed to a lighter, low touch nurture track instead of the full sequence.</div>
-
-      <div class="board" id="board"></div>
-
-      <div class="legend">
-        <div>
-          <h3>What's real in production</h3>
-          <ul>
-            <li>Every message template is drafted from your Blueprint answers and goes through your Template Review before it can send, nothing launches in your name without your sign off</li>
-            <li>Leads move through these exact five stages automatically, no manual data entry</li>
-            <li>The Catch asks a quick budget and fit question before a lead enters the full sequence, so leads who can't realistically afford the offer get routed to a lighter nurture track instead of the same high touch effort as a qualified lead</li>
-            <li>Follow Through combines email and a two way AI text conversation, personalized to each lead, not copy paste templates</li>
-            <li>Second Chance adds an AI voice call on top of that, so a no-show gets a real conversation offering to rebook, not just another message</li>
-            <li>Every email includes a working unsubscribe link, honored automatically, no chasing someone until they block you</li>
-            <li>Discovery calls book directly on your real calendar</li>
-            <li>This view pulls from your own Google Sheet, no new login or platform to learn</li>
-          </ul>
-        </div>
-        <div>
-          <h3>What's simulated for this demo</h3>
-          <ul>
-            <li>All names, dollar values, and notes below are fictional sample data</li>
-            <li>The "Simulate a new lead" button compresses a process that normally unfolds over days into a few seconds</li>
-            <li>Your real dashboard reflects your actual leads and offer price, not these placeholders</li>
-            <li>SMS and AI voice call consent, carrier registration, and legal review are handled before any of this goes live for you</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="cta-section">
-        <h2>Ready to see how this could work for your business?</h2>
-        <p>The Right Hand is built for established coaches and consultants who are profitable but have become the bottleneck in their own business. If you want to automate your intake, book more calls, and spend less time chasing leads, let's talk.</p>
-        <p>Book a quick call to explore whether The Right Hand is a fit, and ask about founding pricing through September 1st.</p>
-        <a href="https://clients.profitautomationacademy.com/widget/booking/IDV7xsrq3kfXBUBADJRC" class="cta-button" target="_blank">Schedule a call</a>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="index.html">The Right Hand</a>
+      <div class="badge">Interactive Demo</div>
+      <div class="top-actions">
+        <a class="btn btn-ghost" href="index.html">Back to landing page</a>
+        <a class="btn btn-main" href="https://righthandintake.com/">Book a call</a>
       </div>
     </div>
+  </header>
 
-    <!-- BLUEPRINT TAB -->
-    <div class="tabpanel" id="tab-blueprint">
-      <div class="panel-intro">This is the Blueprint, the short intake that shapes how your Right Hand talks to and books your leads. You answer once, in your own words, and it becomes the config for everything else. Shown here filled out for a sample client, Maya Chen of Chen Wellness Coaching.</div>
-
-      <div class="card">
-        <h2>Your offer</h2>
-        <div class="card-sub">Already on file</div>
-        <div class="locked-row"><span class="k">Client Name</span><span class="v">Maya Chen</span></div>
-        <div class="locked-row"><span class="k">Company</span><span class="v">Chen Wellness Coaching</span></div>
-        <div class="locked-row"><span class="k">Offer Tier 1</span><span class="v">Starter Wellness Session, $497</span></div>
-        <div class="locked-row"><span class="k">Offer Tier 2</span><span class="v">12 Week Reset Program, $2,400</span></div>
-        <div class="locked-row"><span class="k">Offer Tier 3</span><span class="v">The Full Transformation, $6,500 one time plus $150 per month</span></div>
-      </div>
-
-      <div class="card">
-        <h2>Booking preferences</h2>
-        <div class="card-sub">How discovery calls should work</div>
-        <div class="field">
-          <label>Qualifying question</label>
-          <div class="hint">What should we ask a lead to figure out if they're a fit, and for which offer?</div>
-          <textarea>Are you ready to commit to weekly sessions for at least 12 weeks, and is your budget between $500 and $6,500?</textarea>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-card">
+        <h1>One operating layer for your day.<em>Slack, Notion, Gmail, Calendar, Sheets, Stripe.</em></h1>
+        <p class="sub">This demo shows the exact starter implementation: daily summary, inbox manager, and money dashboard with simulation. Everything here is sample data, but the flow is real.</p>
+        <div class="stack">
+          <div class="tool">Slack</div>
+          <div class="tool">Notion</div>
+          <div class="tool">Google Calendar</div>
+          <div class="tool">Gmail</div>
+          <div class="tool">Google Sheets</div>
+          <div class="tool">Stripe</div>
         </div>
-        <div class="field">
-          <label>Call length</label>
-          <div class="hint">e.g. 30 minutes</div>
-          <input type="text" value="30 minutes">
-        </div>
-        <div class="field">
-          <label>Booking confirmation message</label>
-          <div class="hint">What should a lead be told once they've booked?</div>
-          <textarea>You're booked! I'll send a calendar invite with the Zoom link. Please have your top 3 goals ready to talk through.</textarea>
-        </div>
-        <div class="field">
-          <label>If someone isn't a fit</label>
-          <div class="hint">What should happen if a lead doesn't fit any tier?</div>
-          <textarea>Send them our free wellness guide and add them to the monthly newsletter instead of the full sequence.</textarea>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Your voice</h2>
-        <div class="card-sub">How leads should experience talking to you</div>
-        <div class="field">
-          <label>Voice and tone</label>
-          <div class="hint">How you write and talk to leads</div>
-          <textarea>Warm and encouraging, like texting a friend who happens to be a wellness expert. Short sentences. Emojis okay in texts, not in emails.</textarea>
-        </div>
-        <div class="field">
-          <label>Where leads currently come from</label>
-          <div class="hint">What platform hosts your intake form today</div>
-          <input type="text" value="Instagram bio link, goes to a form on my website">
-        </div>
-      </div>
-
-      <div class="save-bar">
-        <span class="save-status" id="blueprintStatus"></span>
-        <button class="save-btn" onclick="demoSaveBlueprint()">Save answers</button>
       </div>
     </div>
+  </section>
 
-    <!-- TEMPLATE REVIEW TAB -->
-    <div class="tabpanel" id="tab-review">
-      <div class="panel-intro">Once your Blueprint is filled in, we draft the actual wording your leads and clients will see, in your voice, pulled from your own Blueprint answers. Nothing below is live. Every message stays in draft, unsent, until you approve it here, exactly as written or however you've edited it. Shown here for the same sample client, Maya Chen.</div>
+  <section class="sections">
+    <div class="wrap">
+      <div class="grid">
+        <div class="panel">
+          <h2>Live Workflow</h2>
+          <p>Choose a scenario to see what runs, where it reads data, and what the owner gets back.</p>
+          <div class="tabs">
+            <button class="tab active" data-tab="daily">Daily Summary</button>
+            <button class="tab" data-tab="inbox">Inbox Manager</button>
+            <button class="tab" data-tab="money">Money Pulse</button>
+          </div>
 
-      <div class="trust-banner">
-        <strong>This is the approval gate, not a formality.</strong> Your real Right Hand will not send a single message until you've marked it reviewed. If a message doesn't sound like you, edit it right in the box below, we'll only send what you've signed off on.
-      </div>
+          <div class="flow" id="flow"></div>
+          <div class="out" id="out"></div>
+        </div>
 
-      <div class="card" id="reviewCard1">
-        <div class="card-head"><h2>The Follow Through: Email</h2><span class="status-tag" id="reviewTag1">Awaiting your review</span></div>
-        <div class="card-sub">Sent the same day a lead reaches out</div>
-        <textarea class="review-textarea" id="reviewText1">Hi [First Name], so glad you reached out about working together. I saved a few spots this week for a free discovery call, grab a time that works for you here: [booking link]. Talk soon, Maya</textarea>
-        <div class="card-actions">
-          <span class="hint-small">Editing is welcome, this is your voice.</span>
-          <button class="mark-btn" onclick="demoMarkReviewed(1)">Mark reviewed</button>
+        <div class="panel">
+          <h2>Dashboard Snapshot</h2>
+          <p>Notion front-end with a Sheets-backed ledger and Stripe sync.</p>
+          <div class="kpi-grid" id="kpis"></div>
+
+          <div class="sim">
+            <h3>Simulation: 30/60/90-day revenue and customers</h3>
+            <div class="sliders">
+              <div class="row">
+                <label for="price">Average sale price</label>
+                <input id="price" type="range" min="200" max="4000" step="50" value="597">
+                <div class="val" id="priceVal"></div>
+              </div>
+              <div class="row">
+                <label for="conv">Conversion rate</label>
+                <input id="conv" type="range" min="5" max="60" step="1" value="24">
+                <div class="val" id="convVal"></div>
+              </div>
+              <div class="row">
+                <label for="lead">New qualified leads / month</label>
+                <input id="lead" type="range" min="10" max="180" step="5" value="52">
+                <div class="val" id="leadVal"></div>
+              </div>
+              <div class="row">
+                <label for="churn">Churn / month</label>
+                <input id="churn" type="range" min="1" max="30" step="1" value="8">
+                <div class="val" id="churnVal"></div>
+              </div>
+              <div class="row">
+                <label for="recover">Failed payment recovery</label>
+                <input id="recover" type="range" min="0" max="100" step="5" value="35">
+                <div class="val" id="recoverVal"></div>
+              </div>
+            </div>
+
+            <div class="projection" id="projection"></div>
+          </div>
+
+          <div class="note">Definition lock for this build: <strong>New customer = first successful payment ever in Stripe</strong> (client local timezone).</div>
         </div>
       </div>
 
-      <div class="card" id="reviewCard2">
-        <div class="card-head"><h2>The Second Chance: SMS</h2><span class="status-tag" id="reviewTag2">Awaiting your review</span></div>
-        <div class="card-sub">Sent within the hour after a missed call</div>
-        <textarea class="review-textarea" id="reviewText2">Hi [First Name], this is Maya's Right Hand checking in. Looks like we missed each other for your call. Want to grab a new time? Just reply here or book directly: [booking link]</textarea>
-        <div class="card-actions">
-          <span class="hint-small">Editing is welcome, this is your voice.</span>
-          <button class="mark-btn" onclick="demoMarkReviewed(2)">Mark reviewed</button>
-        </div>
-      </div>
-
-      <div class="card" id="reviewCard3">
-        <div class="card-head"><h2>The Welcome: Email</h2><span class="status-tag" id="reviewTag3">Awaiting your review</span></div>
-        <div class="card-sub">Sent the day a new client signs on</div>
-        <textarea class="review-textarea" id="reviewText3">Welcome to the program, [First Name]! I'm so excited to work with you. Here's what happens next: you'll get a welcome packet within 24 hours, our first session is on the calendar for [date], and you can reach me anytime at this email. Let's get started.</textarea>
-        <div class="card-actions">
-          <span class="hint-small">Editing is welcome, this is your voice.</span>
-          <button class="mark-btn" onclick="demoMarkReviewed(3)">Mark reviewed</button>
-        </div>
-      </div>
-
-      <div class="save-bar">
-        <span class="save-status" id="reviewStatus"></span>
-        <button class="save-btn" onclick="demoSubmitReview()">Submit my review</button>
+      <div class="foot-cta">
+        <p>This starter setup focuses on one bottleneck first and gives owners the operational view they actually need every day.</p>
+        <a class="btn btn-main" href="https://righthandintake.com/">Book a starter implementation call</a>
       </div>
     </div>
-
-  </div>
-
-  <div class="overlay" id="overlay" onclick="if(event.target===this) closeModal()">
-    <div class="modal">
-      <h3 id="modalName"></h3>
-      <div class="modal-value" id="modalValue"></div>
-      <div id="modalTimeline"></div>
-      <button class="modal-close" onclick="closeModal()">Close</button>
-    </div>
-  </div>
+  </section>
 
 <script>
-  function showTab(name) {
-    document.querySelectorAll('.tabpanel').forEach(function(p){ p.classList.remove('active'); });
-    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
-    document.getElementById('tab-' + name).classList.add('active');
-    document.querySelector('.tab-btn[data-tab="' + name + '"]').classList.add('active');
-  }
-
-  function demoSaveBlueprint() {
-    var status = document.getElementById('blueprintStatus');
-    status.textContent = 'Saved. In your real Blueprint, this updates instantly and we pick it up on our end.';
-    status.className = 'save-status ok';
-  }
-
-  function demoMarkReviewed(n) {
-    var card = document.getElementById('reviewCard' + n);
-    var tag = document.getElementById('reviewTag' + n);
-    card.classList.add('reviewed');
-    tag.classList.add('reviewed');
-    tag.textContent = 'Approved as-is';
-  }
-
-  function demoSubmitReview() {
-    var wrap = document.getElementById('tab-review');
-    wrap.innerHTML = '<div class="done-box"><strong>Thank you, your review is in.</strong><br>In your real Right Hand, nothing goes live until this step is done. If you edited anything, we give it a quick look for formatting, then it launches in your voice, exactly as you approved it.</div>';
-  }
-
-  var STAGES = ["catch","followthrough","handshake","secondchance","welcome"];
-  var STAGE_LABEL = {
-    catch: "The Catch",
-    followthrough: "The Follow Through",
-    handshake: "The Handshake",
-    secondchance: "The Second Chance",
-    welcome: "The Welcome"
-  };
-  var STAGE_CAPTION = {
-    catch: "The Catch: captures the lead the moment they reach out.",
-    followthrough: "The Follow Through: follows up automatically so nothing goes cold.",
-    handshake: "The Handshake: books the discovery call.",
-    secondchance: "The Second Chance: brings back no-shows and no-bookers.",
-    welcome: "The Welcome: onboards the new client."
-  };
-
-  var leads = [
-    {id:1, name:"Jordan Ellis", value:8000, stage:"catch", daysAgo:0.1, note:"Submitted contact form this morning", source:"Website form"},
-    {id:2, name:"Priya Nandan", value:4997, stage:"catch", daysAgo:0.3, note:"Started a chat on the website", source:"Live chat"},
-    {id:3, name:"Marcus Webb", value:4997, stage:"followthrough", daysAgo:2, note:"2nd follow-up sent (email + text), no reply yet", source:"Referral link"},
-    {id:4, name:"Sofia Reyes", value:8000, stage:"followthrough", daysAgo:1, note:"Opened last email, text delivered, no reply", source:"Website form"},
-    {id:5, name:"Devon Clarke", value:4997, stage:"followthrough", daysAgo:3, note:"1st follow-up sent (email + text)", source:"Instagram DM"},
-    {id:6, name:"Elena Fischer", value:8000, stage:"handshake", daysAgo:2, note:"Discovery call booked for Thu 2pm", source:"Website form"},
-    {id:7, name:"Ravi Chandran", value:4997, stage:"handshake", daysAgo:1, note:"Discovery call booked for Fri 10am", source:"Instagram DM"},
-    {id:8, name:"Nina Osei", value:4997, stage:"secondchance", daysAgo:5, note:"No-show last week, AI text sent within the hour, AI voice call placed after no reply", source:"Referral link"},
-    {id:9, name:"Tomas Bergstrom", value:8000, stage:"secondchance", daysAgo:9, note:"Never booked after 3 follow-ups, final AI text and voice call placed", source:"Website form"},
-    {id:10, name:"Anaya Whitfield", value:8000, stage:"welcome", daysAgo:6, note:"Onboarded this week", source:"Live chat"},
-    {id:11, name:"Lucas Bianchi", value:8000, stage:"welcome", daysAgo:10, note:"Onboarded last week", source:"Website form"},
-    {id:12, name:"Grace Okafor", value:4997, stage:"welcome", daysAgo:14, note:"Onboarded two weeks ago", source:"Instagram DM"},
-    {id:13, name:"Sasha Coleman", value:4997, stage:"welcome", daysAgo:25, note:"Onboarded this month", source:"Referral link"},
-    {id:14, name:"Owen Whitmore", value:4997, stage:"welcome", daysAgo:40, note:"Onboarded last month", source:"Website form"},
-    {id:15, name:"Ines Duarte", value:4997, stage:"welcome", daysAgo:55, note:"Onboarded about 2 months ago", source:"Email reply"},
-    {id:16, name:"Callum Reyes", value:4997, stage:"welcome", daysAgo:75, note:"Onboarded about 2 months ago", source:"Instagram DM"},
-    {id:17, name:"Priya Malhotra", value:4997, stage:"welcome", daysAgo:110, note:"Onboarded last quarter", source:"Website form"},
-    {id:18, name:"Marco Silvestri", value:4997, stage:"welcome", daysAgo:160, note:"Onboarded about 5 months ago", source:"Referral link"},
-    {id:19, name:"Aaliyah Grant", value:4997, stage:"welcome", daysAgo:210, note:"Onboarded about 7 months ago", source:"Live chat"},
-    {id:20, name:"Felix Hartmann", value:4997, stage:"welcome", daysAgo:280, note:"Onboarded about 9 months ago", source:"Website form"},
-    {id:21, name:"Noor Siddiqui", value:4997, stage:"welcome", daysAgo:340, note:"Onboarded about 11 months ago", source:"Instagram DM"},
-    {id:22, name:"Taylor Brooks", value:0, stage:"catch", daysAgo:0.05, note:"Answered the budget and fit question below threshold, routed to a low-touch nurture track instead of the full sequence", source:"Website form", notFit:true}
-  ];
-
-  var originalLeads = JSON.parse(JSON.stringify(leads));
-  var selectedRange = 30;
-  var simRunning = false;
-
-  function resetDemo() {
-    if (simRunning) return;
-    leads = JSON.parse(JSON.stringify(originalLeads));
-    var c = document.getElementById("caption");
-    c.textContent = "";
-    c.classList.remove("show");
-    document.getElementById("simBtn").disabled = false;
-    document.getElementById("simBtn").textContent = "Simulate a new lead";
-    renderAll();
-  }
-
-  function visibleLeads() {
-    return leads.filter(function(l){ return l.daysAgo <= selectedRange; });
-  }
-
-  function rangeLabel() {
-    if (selectedRange === 7) return "last 7 days";
-    if (selectedRange === 30) return "last 30 days";
-    if (selectedRange === 60) return "last 60 days";
-    if (selectedRange === 90) return "this quarter";
-    return "this year";
-  }
-
-  function setRange(days) {
-    selectedRange = days;
-    document.querySelectorAll(".range-btn").forEach(function(btn){
-      btn.classList.toggle("active", parseInt(btn.getAttribute("data-days"), 10) === days);
-    });
-    renderAll();
-  }
-
-  function fmtMoney(n) {
-    return "$" + Math.round(n).toLocaleString("en-US");
-  }
-
-  function stageLeads(stage) {
-    return visibleLeads().filter(function(l){ return l.stage === stage; });
-  }
-
-  function renderKPIs() {
-    var pool = visibleLeads().filter(function(l){ return !l.notFit; });
-    var active = pool.filter(function(l){ return l.stage !== "welcome"; });
-    var pipelineValue = active.reduce(function(s,l){ return s + l.value; }, 0);
-    var handshakeLeads = stageLeads("handshake");
-    var secondChanceLeads = stageLeads("secondchance");
-    var secondChanceValue = secondChanceLeads.reduce(function(s,l){ return s + l.value; }, 0);
-    var welcomeLeads = stageLeads("welcome");
-    var revenue = welcomeLeads.reduce(function(s,l){ return s + l.value; }, 0);
-    var conversion = pool.length ? Math.round((welcomeLeads.length / pool.length) * 100) : 0;
-    var rl = rangeLabel();
-
-    var cards = [
-      {label:"Active pipeline value", value: fmtMoney(pipelineValue), sub: active.length + " active leads"},
-      {label:"Calls scheduled", value: handshakeLeads.length, sub: "awaiting call, entered " + rl},
-      {label:"In recovery", value: fmtMoney(secondChanceValue), sub: secondChanceLeads.length + " no-show/no-booker lead" + (secondChanceLeads.length===1?"":"s")},
-      {label:"New clients", value: welcomeLeads.length, sub: "onboarded, " + rl},
-      {label:"Revenue", value: fmtMoney(revenue), sub: conversion + "% lead-to-client, " + rl, revenue:true}
-    ];
-
-    var html = "";
-    cards.forEach(function(c){
-      html += '<div class="kpi' + (c.revenue ? ' revenue' : '') + '">' +
-        '<div class="kpi-label">' + c.label + '</div>' +
-        '<div class="kpi-value">' + c.value + '</div>' +
-        '<div class="kpi-sub">' + c.sub + '</div>' +
-      '</div>';
-    });
-    document.getElementById("kpiRow").innerHTML = html;
-  }
-
-  function renderBoard() {
-    var html = "";
-    STAGES.forEach(function(stage){
-      var items = stageLeads(stage);
-      var qualified = items.filter(function(l){ return !l.notFit; });
-      var total = qualified.reduce(function(s,l){ return s + l.value; }, 0);
-      html += '<div class="col">' +
-        '<div class="col-head">' +
-          '<div class="col-name">' + STAGE_LABEL[stage] + '</div>' +
-          '<div class="col-stats"><b>' + qualified.length + '</b> lead' + (qualified.length===1?'':'s') + ' &middot; <b>' + fmtMoney(total) + '</b></div>' +
-        '</div>';
-      if (items.length === 0) {
-        html += '<div class="empty-col">No leads at this stage right now</div>';
-      } else {
-        items.forEach(function(l){
-          var cls = "lead-card";
-          if (stage === "welcome") cls += " welcome-card";
-          if (stage === "secondchance") cls += " secondchance-card";
-          if (l.notFit) cls += " notfit-card";
-          if (l.simActive) cls += " sim-active";
-          html += '<div class="' + cls + '" onclick="openModal(' + l.id + ')">' +
-            '<div class="lead-name">' + l.name + '</div>' +
-            (l.notFit ? '' : '<div class="lead-value">' + fmtMoney(l.value) + '</div>') +
-            '<div class="lead-note">' + l.note + '</div>' +
-            (l.notFit ? '<span class="notfit-tag">Not a fit</span>' : '') +
-            '<span class="source-tag">' + l.source + '</span>' +
-          '</div>';
-        });
-      }
-      html += '</div>';
-    });
-    document.getElementById("board").innerHTML = html;
-  }
-
-  function renderAll() {
-    renderKPIs();
-    renderBoard();
-  }
-
-  function openModal(id) {
-    var l = leads.filter(function(x){ return x.id === id; })[0];
-    if (!l) return;
-    document.getElementById("modalName").textContent = l.name;
-    document.getElementById("modalValue").textContent = l.notFit ? ("Below fit threshold, via " + l.source) : (fmtMoney(l.value) + " offer value, via " + l.source);
-
-    var idx = STAGES.indexOf(l.stage);
-    var visited = STAGES.slice(0, idx + 1);
-    if (l.stage !== "secondchance" && l.stage !== "welcome") {
-      visited = STAGES.slice(0, idx + 1).filter(function(s){ return s !== "secondchance"; });
+  const scenarios = {
+    daily: {
+      nodes: [
+        ["Trigger", "5:00 AM local"],
+        ["Google Calendar", "Pull today's events"],
+        ["Notion", "Pull today's tasks"],
+        ["LLM", "Build one concise owner brief"],
+        ["Slack", "Deliver morning summary"]
+      ],
+      output: "06:00 AM Owner Brief\\n\\nToday: 5 calendar events, 8 priority tasks.\\nTop 3 priorities:\\n1) Client onboarding packet due by 10:30 AM.\\n2) Follow-up queue has 4 high-intent leads waiting 24h+.\\n3) Stripe had 2 failed renewals; recovery messages queued.\\n\\nRisk flag: Afternoon block has no buffer between calls.",
+      kpis: [
+        ["Yesterday net revenue", "$2,984"],
+        ["7-day net revenue", "$19,442"],
+        ["30-day net revenue", "$83,915"],
+        ["New customers (30d)", "41"]
+      ]
+    },
+    inbox: {
+      nodes: [
+        ["Trigger", "New Gmail message"],
+        ["Rule engine", "Internal / Billing / VIP / General"],
+        ["Action", "Label, summarize, escalate, or queue"],
+        ["Notion", "Update follow-up table"],
+        ["Slack", "Send only critical alerts"]
+      ],
+      output: "Inbox Manager Output\\n\\nEmail: invoice dispute from client@acme.com\\nRoute: Billing (high priority)\\nActions: \\n- Gmail label set: Billing\\n- Summary added to Notion: Finance Queue\\n- Slack alert sent to #ops-alerts\\n\\nEmail: newsletter request\\nRoute: General\\nAction: queued, no alert.",
+      kpis: [
+        ["Inbox triaged today", "68"],
+        ["Escalated alerts", "7"],
+        ["Follow-ups created", "14"],
+        ["Avg response lag", "2h 12m"]
+      ]
+    },
+    money: {
+      nodes: [
+        ["Stripe sync", "Pull charges, refunds, failures"],
+        ["Sheets ledger", "Net revenue + first-purchase logic"],
+        ["Notion dashboard", "Refresh yesterday/7/30 views"],
+        ["Simulation", "Project 30/60/90 scenarios"],
+        ["Slack", "Daily money pulse + anomaly alerts"]
+      ],
+      output: "Money Pulse\\n\\nYesterday net revenue: $2,984\\nNew customers: 3\\nRefunds: 1 ($149)\\nFailed payments: 4 (2 recovered)\\n\\n7-day trend: +12.4% vs previous week.\\nWatch list: churn rose from 6% to 8% this month.",
+      kpis: [
+        ["Failed payments (30d)", "27"],
+        ["Recovered payments", "11"],
+        ["Refund rate", "1.8%"],
+        ["Churn (monthly)", "8%"]
+      ]
     }
-    var span = l.daysAgo;
-    var tHtml = "";
-    visited.forEach(function(s, i){
-      var isCurrent = (i === visited.length - 1);
-      var daysBack = Math.max(0, Math.round(span - (span * (i / Math.max(visited.length,1)))));
-      var when = daysBack <= 0 ? "Today" : (daysBack === 1 ? "1 day ago" : daysBack + " days ago");
-      tHtml += '<div class="timeline-item' + (isCurrent ? ' current' : '') + '">' +
-        '<div class="timeline-dot"></div>' +
-        '<div><div class="t-stage">' + STAGE_LABEL[s] + '</div><div class="t-when">' + (isCurrent ? l.note : when) + '</div></div>' +
-      '</div>';
+  };
+
+  const flowEl = document.getElementById("flow");
+  const outEl = document.getElementById("out");
+  const kpiEl = document.getElementById("kpis");
+  const tabs = Array.from(document.querySelectorAll(".tab"));
+
+  function renderScenario(name) {
+    const s = scenarios[name];
+    flowEl.innerHTML = "";
+    s.nodes.forEach((n, idx) => {
+      const div = document.createElement("div");
+      div.className = "node" + (idx === s.nodes.length - 1 ? " active" : "");
+      div.innerHTML = `<strong>${n[0]}</strong><span>${n[1]}</span>`;
+      flowEl.appendChild(div);
     });
-    document.getElementById("modalTimeline").innerHTML = tHtml;
-    document.getElementById("overlay").classList.add("show");
-  }
-  function closeModal() {
-    document.getElementById("overlay").classList.remove("show");
-  }
-
-  function setCaption(text) {
-    var c = document.getElementById("caption");
-    c.textContent = text;
-    c.classList.add("show");
+    outEl.textContent = s.output;
+    kpiEl.innerHTML = "";
+    s.kpis.forEach(([l, v]) => {
+      const card = document.createElement("div");
+      card.className = "kpi";
+      card.innerHTML = `<div class="l">${l}</div><div class="v">${v}</div>`;
+      kpiEl.appendChild(card);
+    });
   }
 
-  function runSimulation() {
-    if (simRunning) return;
-    simRunning = true;
-    document.getElementById("simBtn").disabled = true;
-    document.getElementById("simBtn").textContent = "Simulating...";
-    document.getElementById("resetBtn").disabled = true;
+  tabs.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      tabs.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderScenario(btn.dataset.tab);
+    });
+  });
 
-    var names = ["Casey Odom", "Bianca Ferreira", "Miles Thornton", "Renata Kovac"];
-    var name = names[Math.floor(Math.random() * names.length)];
-    var offerValues = [4997, 4997, 8000];
-    var value = offerValues[Math.floor(Math.random() * offerValues.length)];
-    var sources = ["Website form", "Instagram DM", "Live chat", "Referral link", "Email reply"];
-    var source = sources[Math.floor(Math.random() * sources.length)];
-    var simId = 9999;
-    var sim = {id:simId, name:name, value:value, stage:"catch", daysAgo:0, note:"Just came in via " + source, source:source, simActive:true};
-    leads.push(sim);
-    renderAll();
-    setCaption(STAGE_CAPTION.catch + " " + name + " just reached out through " + source + ". Budget and fit question passed, moving to Follow Through.");
+  const fields = {
+    price: document.getElementById("price"),
+    conv: document.getElementById("conv"),
+    lead: document.getElementById("lead"),
+    churn: document.getElementById("churn"),
+    recover: document.getElementById("recover")
+  };
 
-    var steps = [
-      { stage: "followthrough", note: "Automated email + AI text conversation started within minutes",
-        caption: STAGE_CAPTION.followthrough + " " + name + " gets a personalized nudge by email and an AI driven two way text, the two channels that get the fastest response, no manual work." },
-      { stage: "handshake", note: "Booked a discovery call for Thursday",
-        caption: STAGE_CAPTION.handshake + " " + name + " is on the calendar for Thursday." },
-      { stage: "secondchance", note: "Didn't show for the call, AI text conversation started within the hour",
-        caption: STAGE_CAPTION.secondchance + " " + name + " missed the call. The AI texts them within the hour with a one click rebooking link. On most systems, this lead is gone for good." },
-      { stage: "secondchance", note: "No reply to text, AI voice call placed via Retell to offer rebooking live",
-        caption: "Still no response, so an AI voice call goes out next, a real conversation offering to rebook on the spot, not just another message." },
-      { stage: "welcome", note: "Rebooked during the AI call and onboarded",
-        caption: STAGE_CAPTION.welcome + " " + name + " rebooked right there on the call and is now a paying client." }
+  function fmtMoney(v) {
+    return "$" + Math.round(v).toLocaleString("en-US");
+  }
+
+  function project(months) {
+    const price = Number(fields.price.value);
+    const conv = Number(fields.conv.value) / 100;
+    const leads = Number(fields.lead.value);
+    const churn = Number(fields.churn.value) / 100;
+    const recover = Number(fields.recover.value) / 100;
+
+    const monthlyNew = leads * conv;
+    const recoveredBoost = monthlyNew * 0.12 * recover;
+    const effectiveNew = monthlyNew + recoveredBoost;
+
+    let activeBase = 30;
+    let revenue = 0;
+    let newCustomers = 0;
+
+    for (let i = 0; i < months; i += 1) {
+      const churned = activeBase * churn;
+      activeBase = Math.max(0, activeBase - churned + effectiveNew);
+      newCustomers += effectiveNew;
+      revenue += effectiveNew * price;
+    }
+
+    return {
+      revenue,
+      customers: newCustomers,
+      active: activeBase
+    };
+  }
+
+  function renderProjection() {
+    const p = Number(fields.price.value);
+    const c = Number(fields.conv.value);
+    const l = Number(fields.lead.value);
+    const ch = Number(fields.churn.value);
+    const r = Number(fields.recover.value);
+
+    document.getElementById("priceVal").textContent = fmtMoney(p);
+    document.getElementById("convVal").textContent = c + "%";
+    document.getElementById("leadVal").textContent = l + " leads";
+    document.getElementById("churnVal").textContent = ch + "%";
+    document.getElementById("recoverVal").textContent = r + "%";
+
+    const p30 = project(1);
+    const p60 = project(2);
+    const p90 = project(3);
+
+    const blocks = [
+      ["30 days", p30],
+      ["60 days", p60],
+      ["90 days", p90]
     ];
-    var delay = 1500;
-    steps.forEach(function(step, i){
-      setTimeout(function(){
-        sim.stage = step.stage;
-        sim.note = step.note;
-        renderAll();
-        setCaption(step.caption);
-        if (step.stage === "welcome") {
-          setTimeout(function(){
-            sim.simActive = false;
-            renderAll();
-            simRunning = false;
-            document.getElementById("simBtn").disabled = false;
-            document.getElementById("simBtn").textContent = "Simulate a new lead";
-            document.getElementById("resetBtn").disabled = false;
-          }, 1200);
-        }
-      }, delay * (i + 1));
+
+    const el = document.getElementById("projection");
+    el.innerHTML = "";
+    blocks.forEach(([t, d]) => {
+      const card = document.createElement("div");
+      card.className = "proj";
+      card.innerHTML = `
+        <div class="t">${t}</div>
+        <div class="m">${fmtMoney(d.revenue)}</div>
+        <div class="s">Projected new customers: ${Math.round(d.customers)}<br>Projected active customers: ${Math.round(d.active)}</div>
+      `;
+      el.appendChild(card);
     });
   }
 
-  renderAll();
+  Object.values(fields).forEach((input) => input.addEventListener("input", renderProjection));
+
+  renderScenario("daily");
+  renderProjection();
 </script>
-
-<footer style="background: var(--off-white); border-top: 1px solid var(--mauve); padding: 24px; text-align: center;">
-  <p style="margin: 0; font-family: 'Lora', Georgia, serif; font-size: 12px; color: var(--slate);">&copy; <span class="copyright-year"></span> The Right Hand. All rights reserved.</p>
-</footer>
-<script>document.querySelectorAll('.copyright-year').forEach(function(el) { el.textContent = new Date().getFullYear(); });</script>
-
 </body>
 </html>
