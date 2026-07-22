@@ -270,6 +270,8 @@
     margin: 10px 0 6px;
   }
   .chan {
+    width: 100%;
+    border: none;
     display: flex;
     align-items: center;
     gap: 7px;
@@ -277,6 +279,10 @@
     padding: 6px 7px;
     border-radius: 7px;
     color: rgba(255, 255, 255, 0.9);
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--body);
   }
   .chan .chan-name { flex: 1; }
   .chan-badge {
@@ -708,6 +714,7 @@
           <div class="tabs">
             <button class="tab active" data-tab="daily">Daily Summary</button>
             <button class="tab" data-tab="inbox">Inbox Manager</button>
+            <button class="tab" data-tab="followup">Follow-Up</button>
             <button class="tab" data-tab="money">Money Pulse</button>
           </div>
 
@@ -835,7 +842,60 @@
         ["Avg response lag", "2h 12m"]
       ]
     },
-    money: {
+    followup: {
+      nodes: [
+        ["Trigger", "Lead replies or stalls"],
+        ["Rule engine", "Intent scored from message history"],
+        ["Action", "Draft reply or nudge sequence"],
+        ["Notion", "Update next step and owner"],
+        ["Slack", "Post follow-up summary"]
+      ],
+      channel: "#follow-up-desk",
+      unread: {
+        "#owner-brief": 1,
+        "#ops-alerts": 1,
+        "#follow-up-desk": 0,
+        "#money-pulse": 2
+      },
+      output: [
+        { from: "Right Hand", time: "1:18 PM", role: "bot", text: "Lead follow-up queue refreshed. 4 contacts need action in the next 24 hours.", reactions: ["spiral_note_pad 1"] },
+        { from: "Right Hand", time: "1:19 PM", role: "bot", text: "Tasha Green moved to warm. Draft reply prepared with booking prompt and one proof point.", thread: "Preview draft", threadDetail: "Thread detail: Draft reply\\n\\nHi Tasha, circling back because your question about timing was a good one. Based on what you shared, the fastest win is getting your inbox triage and daily priorities handled first. If you want, grab a time here and I can walk you through what that would look like in your setup." },
+        { from: "Ops Alert", time: "1:20 PM", role: "alert", text: "2 leads have gone 48h without a response owner assigned.", reactions: ["warning 2"] }
+      ],
+      kpis: [
+        ["Open follow-ups", "14"],
+        ["Due in 24h", "4"],
+        ["Reply rate", "38%"],
+        ["Booked from follow-up", "6"]
+      ]
+    }
+  };
+
+  const channelMap = {
+    daily: "#owner-brief",
+    inbox: "#ops-alerts",
+    followup: "#follow-up-desk",
+    money: "#money-pulse"
+  };
+
+  let currentScenario = "daily";
+
+  function buildMoneyScenario() {
+    const price = Number(fields.price.value);
+    const conv = Number(fields.conv.value);
+    const leads = Number(fields.lead.value);
+    const churn = Number(fields.churn.value);
+    const recover = Number(fields.recover.value);
+    const p30 = project(1);
+    const yesterdayRevenue = Math.max(0, Math.round(p30.revenue / 30));
+    const customers30 = Math.round(p30.customers);
+    const failedPayments = Math.max(1, Math.round(leads * 0.18));
+    const recoveredPayments = Math.round(failedPayments * (recover / 100));
+    const refunds = Math.max(0, Math.round(customers30 * 0.08));
+    const refundValue = refunds * Math.round(price * 0.25);
+    const trend = (conv - churn * 0.35).toFixed(1);
+
+    return {
       nodes: [
         ["Stripe sync", "Pull charges, refunds, failures"],
         ["Sheets ledger", "Net revenue + first-purchase logic"],
@@ -847,21 +907,22 @@
       unread: {
         "#owner-brief": 2,
         "#ops-alerts": 1,
+        "#follow-up-desk": 1,
         "#money-pulse": 0
       },
       output: [
-        { from: "Right Hand", time: "7:05 AM", role: "bot", text: "Daily money pulse posted.\\nYesterday net revenue: $2,984\\nNew customers: 3\\nRefunds: 1 ($149)\\nFailed payments: 4 (2 recovered)", reactions: ["chart_with_upwards_trend 2"] },
-        { from: "Right Hand", time: "7:05 AM", role: "bot", text: "7-day trend: +12.4% vs previous week.", thread: "Open detail", threadDetail: "Thread detail: 7-day trend is calculated from Stripe gross minus refunds and failed payments, then rolled into the Sheets ledger for the Notion snapshot.\\n\\nDetail: 4 failed payments, 2 recovered within 24 hours." },
-        { from: "Ops Alert", time: "7:06 AM", role: "alert", text: "Watch list: churn rose from 6% to 8% this month.", reactions: ["warning 1"] }
+        { from: "Right Hand", time: "7:05 AM", role: "bot", text: `Daily money pulse posted.\nYesterday net revenue: ${fmtMoney(yesterdayRevenue)}\nNew customers: ${customers30}\nRefunds: ${refunds} (${fmtMoney(refundValue)})\nFailed payments: ${failedPayments} (${recoveredPayments} recovered)`, reactions: ["chart_with_upwards_trend 2"] },
+        { from: "Right Hand", time: "7:05 AM", role: "bot", text: `7-day trend: +${trend}% vs previous week.`, thread: "Open detail", threadDetail: `Thread detail: 7-day trend is calculated from Stripe gross minus refunds and failed payments, then rolled into the Sheets ledger for the Notion snapshot.\n\nDetail: ${failedPayments} failed payments, ${recoveredPayments} recovered within 24 hours.\nProjected 30-day revenue: ${fmtMoney(p30.revenue)}.` },
+        { from: "Ops Alert", time: "7:06 AM", role: "alert", text: `Watch list: churn is modeled at ${churn}% this month across ${leads} qualified leads.`, reactions: ["warning 1"] }
       ],
       kpis: [
-        ["Failed payments (30d)", "27"],
-        ["Recovered payments", "11"],
-        ["Refund rate", "1.8%"],
-        ["Churn (monthly)", "8%"]
+        ["Failed payments (30d)", String(failedPayments)],
+        ["Recovered payments", String(recoveredPayments)],
+        ["Refund rate", `${customers30 ? ((refunds / customers30) * 100).toFixed(1) : "0.0"}%`],
+        ["Churn (monthly)", `${churn}%`]
       ]
-    }
-  };
+    };
+  }
 
   const flowEl = document.getElementById("flow");
   const outEl = document.getElementById("out");
@@ -871,14 +932,19 @@
   const threadModalBody = document.getElementById("threadModalBody");
   const threadCloseBtn = document.getElementById("threadCloseBtn");
 
-  function channelRow(label, activeChannel, unreadMap) {
+  function getScenario(name) {
+    if (name === "money") return buildMoneyScenario();
+    return scenarios[name];
+  }
+
+  function channelRow(label, activeChannel, unreadMap, scenarioName) {
     const count = unreadMap && unreadMap[label] ? unreadMap[label] : 0;
     return `
-      <div class="chan ${activeChannel === label ? "active" : ""}">
+      <button type="button" class="chan ${activeChannel === label ? "active" : ""}" data-scenario="${scenarioName}">
         <span class="chan-dot"></span>
         <span class="chan-name">${label.replace("#", "# ")}</span>
         ${count > 0 ? `<span class="chan-badge">${count}</span>` : ""}
-      </div>
+      </button>
     `;
   }
 
@@ -895,7 +961,11 @@
   }
 
   function renderScenario(name) {
-    const s = scenarios[name];
+    currentScenario = name;
+    const s = getScenario(name);
+    tabs.forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.tab === name);
+    });
     flowEl.innerHTML = "";
     s.nodes.forEach((n, idx) => {
       const div = document.createElement("div");
@@ -909,12 +979,13 @@
           <div class="ws-title">Right Hand Ops</div>
           <div class="ws-meta">Demo Workspace</div>
           <div class="chan-group">Channels</div>
-          ${channelRow("#owner-brief", s.channel, s.unread)}
-          ${channelRow("#ops-alerts", s.channel, s.unread)}
-          ${channelRow("#money-pulse", s.channel, s.unread)}
+          ${channelRow("#owner-brief", s.channel, s.unread, "daily")}
+          ${channelRow("#ops-alerts", s.channel, s.unread, "inbox")}
+          ${channelRow("#follow-up-desk", s.channel, s.unread, "followup")}
+          ${channelRow("#money-pulse", s.channel, s.unread, "money")}
           <div class="chan-group">Direct Messages</div>
-          <div class="chan">Doresa</div>
-          <div class="chan">Right Hand</div>
+          <button type="button" class="chan"><span class="chan-name">Doresa</span></button>
+          <button type="button" class="chan"><span class="chan-name">Right Hand</span></button>
         </aside>
         <section class="slack-main">
           <div class="slack-head">
@@ -960,14 +1031,17 @@
 
   tabs.forEach((btn) => {
     btn.addEventListener("click", () => {
-      tabs.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
       renderScenario(btn.dataset.tab);
     });
   });
 
   outEl.addEventListener("click", (event) => {
     const target = event.target;
+    const scenarioTrigger = target.closest("[data-scenario]");
+    if (scenarioTrigger) {
+      renderScenario(scenarioTrigger.getAttribute("data-scenario"));
+      return;
+    }
     if (target.classList.contains("thread-link")) {
       openThread(target.getAttribute("data-thread") || "Thread details preview.");
     }
@@ -1057,12 +1131,16 @@
       `;
       el.appendChild(card);
     });
+
+    if (currentScenario === "money") {
+      renderScenario("money");
+    }
   }
 
   Object.values(fields).forEach((input) => input.addEventListener("input", renderProjection));
 
-  renderScenario("daily");
   renderProjection();
+  renderScenario("daily");
 </script>
 </body>
 </html>
