@@ -207,22 +207,31 @@
   }
 
   .flow {
-    margin-top: 18px;
-    display: grid;
-    gap: 10px;
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .flow-note {
+    margin-top: 14px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 800;
   }
   .node {
     border: 1px solid var(--line);
     background: #fff;
-    border-radius: 12px;
-    padding: 12px;
-    display: flex;
+    border-radius: 999px;
+    padding: 8px 10px;
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+    justify-content: flex-start;
+    gap: 8px;
   }
-  .node strong { font-size: 13px; }
-  .node span { font-size: 12px; color: var(--muted); }
+  .node strong { font-size: 11px; }
+  .node span { font-size: 11px; color: var(--muted); }
   .node.active {
     border-color: rgba(11, 126, 122, 0.35);
     box-shadow: 0 0 0 2px rgba(11, 126, 122, 0.1) inset;
@@ -691,8 +700,8 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero-card">
-        <h1>One operating layer for your day.<em>Slack, Notion, Gmail, Calendar, Sheets, Stripe.</em></h1>
-        <p class="sub">This demo shows the exact starter implementation: daily summary, inbox manager, and money dashboard with simulation. Everything here is sample data, but the flow is real.</p>
+        <h1>Step inside the demo and see how The Right Hand runs your day.<em>Inbox triage, follow-up, daily priorities, and money updates.</em></h1>
+        <p class="sub">Preview the starter implementation in a Slack-style workspace before you book. Everything here uses sample data, but the operating flow is built around the real tools you already use.</p>
         <div class="stack">
           <div class="tool">Slack</div>
           <div class="tool">Notion</div>
@@ -709,8 +718,8 @@
     <div class="wrap">
       <div class="grid">
         <div class="panel">
-          <h2>Live Workflow</h2>
-          <p>Choose a scenario to see what runs, where it reads data, and what the owner gets back.</p>
+          <h2>Interactive Preview</h2>
+          <p>Choose a scenario to preview what the owner sees first. The Slack view is the product experience; the workflow below shows what powers it behind the scenes.</p>
           <div class="tabs">
             <button class="tab active" data-tab="daily">Daily Summary</button>
             <button class="tab" data-tab="inbox">Inbox Manager</button>
@@ -718,8 +727,9 @@
             <button class="tab" data-tab="money">Money Pulse</button>
           </div>
 
-          <div class="flow" id="flow"></div>
           <div class="out" id="out"></div>
+          <div class="flow-note">Behind the scenes</div>
+          <div class="flow" id="flow"></div>
         </div>
 
         <div class="panel">
