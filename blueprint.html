@@ -321,7 +321,7 @@
   <header class="masthead">
     <div class="eyebrow">AI Silent Partner &middot; Right Hand Starter Onboarding</div>
     <h1>The <span class="script">Blueprint</span></h1>
-    <p>Your starter implementation is built around the ONE bottleneck causing the most daily drag &mdash; inbox triage, follow-up visibility, or a daily summary. Tell us which one, where you want it delivered, and what you already use.</p>
+    <p>Your starter implementation is built around the ONE bottleneck causing the most daily drag &mdash; inbox triage, follow-up visibility, or a daily summary. Tell us which one, where you want it delivered, what you already use, and who should run it.</p>
   </header>
 
   <div id="loadState" class="load-state">
@@ -372,6 +372,11 @@
               <option value="Follow-Up Visibility">Follow-up visibility &mdash; leads and promises fall through the cracks</option>
               <option value="Daily Summary">Daily summary &mdash; I don't have a clear view of what matters today</option>
             </select>
+          </div>
+          <div class="field">
+            <label for="f-bottleneck-detail" id="f-bottleneck-detail-label">What should we know about it?</label>
+            <span class="hint" id="f-bottleneck-detail-hint">Choose a bottleneck above first.</span>
+            <textarea id="f-bottleneck-detail" data-field="Bottleneck Detail" placeholder="Choose a bottleneck above first."></textarea>
           </div>
         </div>
       </div>
@@ -444,13 +449,31 @@
 
       <div class="group">
         <div class="group-head">
-          <h2>Getting started</h2>
+          <h2>Who runs it</h2>
+          <p>Either way works &mdash; this just decides where the automation lives.</p>
         </div>
         <div class="field-grid">
           <div class="field">
-            <label for="f-access">How you'll share access</label>
-            <span class="hint">Whatever's easiest: adding as a collaborator, a shared folder, exports.</span>
-            <textarea id="f-access" data-field="Access And File-Sharing Notes" placeholder="e.g. I'll add you as a collaborator on my calendar and invite the bot to my workspace"></textarea>
+            <label for="f-hosting">Hosting</label>
+            <select id="f-hosting" data-field="Hosting Preference">
+              <option value="">Choose one&hellip;</option>
+              <option value="Doresa hosts it">Doresa hosts and runs it for me</option>
+              <option value="I'll host it myself">I'll set up my own n8n account and host it myself</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-head">
+          <h2>Getting started</h2>
+          <p>This form doesn't collect passwords, tokens, or API keys. Once you save, we'll follow up with the exact, secure steps to connect the tools you picked above.</p>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="f-access">Anything we should know before we reach out?</label>
+            <span class="hint">Optional &mdash; e.g. a heads up that your Slack needs admin approval, or a best time to walk through setup together.</span>
+            <textarea id="f-access" data-field="Access And File-Sharing Notes" placeholder="e.g. I'm not a workspace admin on Slack, my business partner is"></textarea>
           </div>
         </div>
       </div>
@@ -469,6 +492,41 @@
 <script>
   const GET_URL = 'https://aisilentpartner.app.n8n.cloud/webhook/doresa-get-blueprint-client';
   const SAVE_URL = 'https://aisilentpartner.app.n8n.cloud/webhook/doresa-update-blueprint-client';
+
+  const BOTTLENECK_DETAIL = {
+    'Inbox Triage': {
+      label: "What makes an email urgent for you?",
+      placeholder: "e.g. anything from a client, the word \"invoice,\" or these 3 people: ..."
+    },
+    'Follow-Up Visibility': {
+      label: "What counts as a follow-up you don't want to miss?",
+      placeholder: "e.g. new leads, replies to proposals, anyone who's gone quiet for 3+ days"
+    },
+    'Daily Summary': {
+      label: "What time (and timezone) should your summary arrive?",
+      placeholder: "e.g. 7:00 AM Eastern, before I check anything else"
+    }
+  };
+
+  const bottleneckSelect = document.getElementById('f-bottleneck');
+  const bottleneckDetailLabel = document.getElementById('f-bottleneck-detail-label');
+  const bottleneckDetailHint = document.getElementById('f-bottleneck-detail-hint');
+  const bottleneckDetailField = document.getElementById('f-bottleneck-detail');
+
+  function syncBottleneckDetail() {
+    const choice = BOTTLENECK_DETAIL[bottleneckSelect.value];
+    if (choice) {
+      bottleneckDetailLabel.textContent = choice.label;
+      bottleneckDetailHint.textContent = '';
+      bottleneckDetailField.placeholder = choice.placeholder;
+    } else {
+      bottleneckDetailLabel.textContent = 'What should we know about it?';
+      bottleneckDetailHint.textContent = 'Choose a bottleneck above first.';
+      bottleneckDetailField.placeholder = 'Choose a bottleneck above first.';
+    }
+  }
+
+  bottleneckSelect.addEventListener('change', syncBottleneckDetail);
 
   const loadState = document.getElementById('loadState');
   const errorState = document.getElementById('errorState');
@@ -508,6 +566,7 @@
       const rows = await res.json();
       renderPlan(rows);
       renderForm(rows);
+      syncBottleneckDetail();
       loadState.classList.add('hidden');
       content.classList.remove('hidden');
     } catch (err) {
