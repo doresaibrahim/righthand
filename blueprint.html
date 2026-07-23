@@ -37,7 +37,7 @@
 
   /* ===== SHELL ===== */
   .page {
-    max-width: 720px;
+    max-width: 680px;
     margin: 0 auto;
     padding: 4rem 1.5rem 8rem;
   }
@@ -143,30 +143,9 @@
   /* ===== FORM ===== */
   form { display: flex; flex-direction: column; gap: 2.75rem; }
 
-  .group-head {
-    display: flex;
-    align-items: baseline;
-    gap: 0.6rem;
-    margin-bottom: 1.3rem;
-  }
+  .group-head { margin-bottom: 1.2rem; }
 
-  .group-head h2 {
-    font-size: 1.15rem;
-    font-weight: 700;
-  }
-
-  .group-head .tag {
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--gold-deep);
-    background: var(--cream-tint);
-    border: 1px solid var(--sand);
-    border-radius: 100px;
-    padding: 0.2rem 0.65rem;
-    font-family: var(--font-heading);
-    font-weight: 600;
-  }
+  .group-head h2 { font-size: 1.15rem; font-weight: 700; }
 
   .group-head p {
     font-size: 0.9rem;
@@ -175,21 +154,11 @@
     margin-top: 0.25rem;
   }
 
-  .field-grid {
-    display: grid;
-    gap: 1.4rem;
-  }
+  .field-grid { display: grid; gap: 1.4rem; }
 
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-  }
+  .field { display: flex; flex-direction: column; gap: 0.45rem; }
 
-  .field label {
-    font-size: 0.92rem;
-    font-weight: 600;
-  }
+  .field label { font-size: 0.92rem; font-weight: 600; }
 
   .field .hint {
     font-size: 0.83rem;
@@ -214,9 +183,21 @@
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
 
+  .field select {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234A0024' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.85rem center;
+    background-size: 16px;
+    padding-right: 2.5rem;
+  }
+
   .field textarea {
     resize: vertical;
-    min-height: 5.2rem;
+    min-height: 4.6rem;
     line-height: 1.55;
   }
 
@@ -340,7 +321,7 @@
   <header class="masthead">
     <div class="eyebrow">AI Silent Partner &middot; Right Hand Starter Onboarding</div>
     <h1>The <span class="script">Blueprint</span></h1>
-    <p>This is what we build your Email, Calendar, Contact, and Think Assistants from. Send your inbox, calendar, notes, and contacts as they are today — messy is fine. You'll have a working system in 5&ndash;7 business days.</p>
+    <p>Your starter implementation is built around the ONE bottleneck causing the most daily drag &mdash; inbox triage, follow-up visibility, or a daily summary. Tell us which one, where you want it delivered, and what you already use.</p>
   </header>
 
   <div id="loadState" class="load-state">
@@ -379,19 +360,41 @@
 
       <div class="group">
         <div class="group-head">
-          <span class="tag">Part 1</span>
-          <h2>Email Assistant</h2>
+          <h2>Your one bottleneck</h2>
+          <p>We build this first. Everything else waits.</p>
         </div>
-        <p style="font-size: 0.9rem; opacity: 0.85; margin: -1rem 0 1.2rem;">Kills "I'm buried in email and can't reply fast enough."</p>
+        <div class="field-grid">
+          <div class="field">
+            <label for="f-bottleneck">What's creating the most daily drag right now?</label>
+            <select id="f-bottleneck" data-field="Primary Bottleneck">
+              <option value="">Choose one&hellip;</option>
+              <option value="Inbox Triage">Inbox triage &mdash; I can't keep up with email</option>
+              <option value="Follow-Up Visibility">Follow-up visibility &mdash; leads and promises fall through the cracks</option>
+              <option value="Daily Summary">Daily summary &mdash; I don't have a clear view of what matters today</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-head">
+          <h2>Where you want it delivered</h2>
+          <p>Summaries and alerts go where you actually pay attention.</p>
+        </div>
         <div class="field-grid">
           <div class="two-col">
             <div class="field">
-              <label for="f-email-platform">Email platform</label>
-              <input id="f-email-platform" data-field="Email Platform" type="text" placeholder="e.g. Gmail, Outlook">
+              <label for="f-channel">Delivery channel</label>
+              <select id="f-channel" data-field="Delivery Channel">
+                <option value="">Choose one&hellip;</option>
+                <option value="Telegram">Telegram</option>
+                <option value="Slack">Slack</option>
+                <option value="Discord">Discord</option>
+              </select>
             </div>
             <div class="field">
-              <label for="f-email-pain">Your biggest email headache</label>
-              <input id="f-email-pain" data-field="Email Pain Point" type="text" placeholder="e.g. I can't keep up with replies">
+              <label for="f-channel-contact">Where to reach you there</label>
+              <input id="f-channel-contact" data-field="Delivery Channel Contact" type="text" placeholder="e.g. Telegram @handle, Slack workspace name">
             </div>
           </div>
         </div>
@@ -399,19 +402,25 @@
 
       <div class="group">
         <div class="group-head">
-          <span class="tag">Part 2</span>
-          <h2>Calendar Assistant</h2>
+          <h2>Your project management tool</h2>
+          <p>Where tasks and follow-ups will actually live.</p>
         </div>
-        <p style="font-size: 0.9rem; opacity: 0.85; margin: -1rem 0 1.2rem;">Kills "My calendar is messy and I miss what matters."</p>
         <div class="field-grid">
           <div class="two-col">
             <div class="field">
-              <label for="f-cal-platform">Calendar platform</label>
-              <input id="f-cal-platform" data-field="Calendar Platform" type="text" placeholder="e.g. Google Calendar">
+              <label for="f-pm">PM tool</label>
+              <select id="f-pm" data-field="PM Tool">
+                <option value="">Choose one&hellip;</option>
+                <option value="Notion">Notion</option>
+                <option value="ClickUp">ClickUp</option>
+                <option value="Monday.com">Monday.com</option>
+                <option value="None yet">None yet &mdash; set one up for me</option>
+              </select>
             </div>
             <div class="field">
-              <label for="f-cal-pain">Your biggest calendar headache</label>
-              <input id="f-cal-pain" data-field="Calendar Pain Point" type="text" placeholder="e.g. Double bookings, no protected time">
+              <label for="f-pm-workspace">Workspace link</label>
+              <span class="hint">Leave blank if we're setting one up.</span>
+              <input id="f-pm-workspace" data-field="PM Tool Workspace" type="text" placeholder="e.g. link to your existing workspace">
             </div>
           </div>
         </div>
@@ -419,46 +428,16 @@
 
       <div class="group">
         <div class="group-head">
-          <span class="tag">Part 3</span>
-          <h2>Contact Assistant</h2>
+          <h2>Email &amp; calendar</h2>
         </div>
-        <p style="font-size: 0.9rem; opacity: 0.85; margin: -1rem 0 1.2rem;">Kills "I lose track of contacts and follow-up opportunities."</p>
         <div class="field-grid">
           <div class="field">
-            <label for="f-contacts">Where your contacts live today</label>
-            <input id="f-contacts" data-field="Where Contacts Live Today" type="text" placeholder="e.g. Phone contacts, a spreadsheet, no real system">
-          </div>
-        </div>
-      </div>
-
-      <div class="group">
-        <div class="group-head">
-          <span class="tag">Part 4</span>
-          <h2>Think Assistant</h2>
-        </div>
-        <p style="font-size: 0.9rem; opacity: 0.85; margin: -1rem 0 1.2rem;">Kills "I have notes and ideas, but I don't know what to do next."</p>
-        <div class="field-grid">
-          <div class="field">
-            <label for="f-notes">Where your notes and ideas live today</label>
-            <input id="f-notes" data-field="Where Notes And Ideas Live Today" type="text" placeholder="e.g. Notes app, voice memos, sticky notes">
-          </div>
-          <div class="field">
-            <label for="f-nextsteps">How you'd like next steps handed back to you</label>
-            <textarea id="f-nextsteps" data-field="Preferred Next-Steps Format" placeholder="e.g. A short list every morning, a weekly summary email"></textarea>
-          </div>
-        </div>
-      </div>
-
-      <div class="group">
-        <div class="group-head">
-          <span class="tag">Part 5</span>
-          <h2>Dashboard &amp; Profit Sheet</h2>
-        </div>
-        <p style="font-size: 0.9rem; opacity: 0.85; margin: -1rem 0 1.2rem;">Kills "I want to see what matters without digging through spreadsheets."</p>
-        <div class="field-grid">
-          <div class="field">
-            <label for="f-dashboard">What you want to see at a glance</label>
-            <textarea id="f-dashboard" data-field="Dashboard Priority Numbers" placeholder="e.g. Revenue this month, open tasks, upcoming deadlines"></textarea>
+            <label for="f-emailcal">Which do you use?</label>
+            <select id="f-emailcal" data-field="Email And Calendar Platform">
+              <option value="">Choose one&hellip;</option>
+              <option value="Gmail + Google Calendar">Gmail + Google Calendar</option>
+              <option value="Outlook">Outlook (mail &amp; calendar)</option>
+            </select>
           </div>
         </div>
       </div>
@@ -470,8 +449,8 @@
         <div class="field-grid">
           <div class="field">
             <label for="f-access">How you'll share access</label>
-            <span class="hint">Inbox, calendar, notes, and contacts — whatever's easiest: a shared folder, adding as a collaborator, exports.</span>
-            <textarea id="f-access" data-field="Access And File-Sharing Notes" placeholder="e.g. I'll add you as a collaborator on my calendar and share a folder with exports"></textarea>
+            <span class="hint">Whatever's easiest: adding as a collaborator, a shared folder, exports.</span>
+            <textarea id="f-access" data-field="Access And File-Sharing Notes" placeholder="e.g. I'll add you as a collaborator on my calendar and invite the bot to my workspace"></textarea>
           </div>
         </div>
       </div>
