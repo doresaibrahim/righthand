@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Blueprint — AI Silent Partner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #F7F1E4;
+    --cream-tint: #EFE6D3;
+    --burgundy: #4A0024;
+    --burgundy-soft: #6B3348;
+    --gold: #C39842;
+    --gold-deep: #B38833;
+    --sand: #C6B49B;
+    --font-heading: 'Poppins', Arial, sans-serif;
+    --font-body: 'Lora', Georgia, serif;
+    --font-script: 'Pinyon Script', 'Brush Script MT', cursive;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--burgundy-soft);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, label, button, .eyebrow { font-family: var(--font-heading); color: var(--burgundy); }
+
+  /* ===== SHELL ===== */
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 8rem;
+  }
+
+  header.masthead {
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+
+  h1 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  h1 .script {
+    font-family: var(--font-script);
+    font-weight: 400;
+    font-size: 2.3rem;
+    color: var(--gold);
+  }
+
+  .masthead p {
+    margin-top: 0.9rem;
+    max-width: 56ch;
+    color: var(--burgundy-soft);
+    font-size: 1.02rem;
+  }
+
+  /* ===== LOCKED PLAN CARD ===== */
+  .plan-card {
+    background: var(--cream-tint);
+    border: 1px solid var(--sand);
+    border-radius: 10px;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 3rem;
+  }
+
+  .plan-card .plan-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .plan-card .plan-head svg {
+    width: 15px;
+    height: 15px;
+    stroke: var(--sand);
+    flex-shrink: 0;
+  }
+
+  .plan-card .plan-head span {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sand);
+    font-weight: 600;
+  }
+
+  .plan-rows {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: 0.55rem;
+    column-gap: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .plan-rows dt {
+    color: var(--burgundy-soft);
+    opacity: 0.75;
+  }
+
+  .plan-rows dd {
+    color: var(--burgundy);
+    font-weight: 600;
+    text-align: right;
+    font-family: var(--font-heading);
+  }
+
+  .plan-divider {
+    height: 1px;
+    background: var(--sand);
+    opacity: 0.5;
+    margin: 0.9rem 0;
+    grid-column: 1 / -1;
+  }
+
+  /* ===== FORM ===== */
+  form { display: flex; flex-direction: column; gap: 2.75rem; }
+
+  .group-head {
+    margin-bottom: 1.3rem;
+  }
+
+  .group-head h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .group-head p {
+    font-size: 0.9rem;
+    color: var(--burgundy-soft);
+    opacity: 0.85;
+    margin-top: 0.25rem;
+  }
+
+  .field-grid {
+    display: grid;
+    gap: 1.4rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .field label {
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  .field .hint {
+    font-size: 0.83rem;
+    color: var(--burgundy-soft);
+    opacity: 0.75;
+    font-family: var(--font-body);
+    font-style: italic;
+    margin-top: -0.2rem;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--sand);
+    border-radius: 7px;
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    color: var(--burgundy);
+    background: #FFFFFF;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 5.2rem;
+    line-height: 1.55;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(195, 152, 66, 0.15);
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--sand);
+    opacity: 1;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+  }
+
+  @media (max-width: 560px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  /* ===== SAVE BAR ===== */
+  .save-bar {
+    position: sticky;
+    bottom: 0;
+    margin-top: 1rem;
+    padding: 1.1rem 1.4rem;
+    background: rgba(247, 241, 228, 0.96);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--sand);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: 0 8px 28px rgba(74, 0, 36, 0.12);
+  }
+
+  .save-status {
+    font-size: 0.88rem;
+    color: var(--burgundy-soft);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .save-status svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--gold-deep);
+    flex-shrink: 0;
+  }
+
+  .save-status .spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--sand);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  button.save-btn {
+    background: var(--gold);
+    color: var(--burgundy);
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    border: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 16px rgba(195, 152, 66, 0.3);
+    flex-shrink: 0;
+  }
+
+  button.save-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(195, 152, 66, 0.4); }
+  button.save-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+  /* ===== LOAD / ERROR STATES ===== */
+  .load-state, .error-state {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--burgundy-soft);
+  }
+
+  .load-state .spinner {
+    width: 26px;
+    height: 26px;
+    border: 3px solid var(--sand);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto 1.2rem;
+  }
+
+  .error-state {
+    display: none;
+    border: 1px solid var(--sand);
+    border-radius: 10px;
+    background: var(--cream-tint);
+  }
+
+  .error-state.show { display: block; }
+
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="eyebrow">AI Silent Partner &middot; Right Hand Onboarding</div>
+    <h1>The <span class="script">Blueprint</span></h1>
+    <p>This is the spec we build your Right Hand system from — how calls get qualified, what your booking confirmation says, how your voice sounds. Fill in what you know; you can come back and refine it later.</p>
+  </header>
+
+  <div id="loadState" class="load-state">
+    <div class="spinner"></div>
+    <p>Loading your Blueprint&hellip;</p>
+  </div>
+
+  <div id="errorState" class="error-state">
+    <p><strong>Couldn't load your Blueprint right now.</strong></p>
+    <p style="margin-top: 0.4rem; font-size: 0.9rem;">Refresh the page, or reach out if this keeps happening.</p>
+  </div>
+
+  <div id="content" class="hidden">
+
+    <section class="plan-card">
+      <div class="plan-head">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <span>Your plan — set by us</span>
+      </div>
+      <dl class="plan-rows" id="planRows"></dl>
+    </section>
+
+    <form id="blueprintForm">
+
+      <div class="group">
+        <div class="group-head">
+          <h2>Booking &amp; calls</h2>
+          <p>How a lead turns into a booked call, and what happens around it.</p>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="f-qualify">Qualifying question</label>
+            <span class="hint">The one question that tells you whether a lead is worth a call.</span>
+            <textarea id="f-qualify" data-field="Qualifying Question / Logic" placeholder="e.g. What's your current monthly revenue?"></textarea>
+          </div>
+          <div class="two-col">
+            <div class="field">
+              <label for="f-length">Call length</label>
+              <input id="f-length" data-field="Call Length" type="text" placeholder="e.g. 45 minutes">
+            </div>
+            <div class="field">
+              <label for="f-buffer">Buffer between calls</label>
+              <input id="f-buffer" data-field="Buffer Time Between Calls" type="text" placeholder="e.g. 15 minutes">
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-timezone">Your timezone</label>
+            <input id="f-timezone" data-field="Timezone" type="text" placeholder="e.g. Eastern (America/New_York)">
+          </div>
+          <div class="field">
+            <label for="f-confirm">Booking confirmation message</label>
+            <span class="hint">What a lead sees the moment they book.</span>
+            <textarea id="f-confirm" data-field="Booking Confirmation Message" placeholder="e.g. You're booked! Check your email for the calendar invite."></textarea>
+          </div>
+          <div class="field">
+            <label for="f-fallback">If it's a no-show or not a fit</label>
+            <textarea id="f-fallback" data-field="Fallback Behavior (no answer / no fit)" placeholder="e.g. Send a reschedule link after 10 minutes of no-show."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-head">
+          <h2>Voice &amp; compliance</h2>
+          <p>How the system should sound, and the disclosures it's required to give.</p>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="f-voice">Voice &amp; tone</label>
+            <span class="hint">Words you'd use to describe how you talk to leads — and any you'd never use.</span>
+            <textarea id="f-voice" data-field="Voice / Tone Notes" placeholder="e.g. Warm, direct, no corporate jargon."></textarea>
+          </div>
+          <div class="field">
+            <label for="f-disclosure">AI disclosure line</label>
+            <span class="hint">What tells someone they're talking to an automated system.</span>
+            <input id="f-disclosure" data-field="Voice: AI Disclosure Line" type="text" placeholder="e.g. This is an automated assistant for [Business].">
+          </div>
+          <div class="field">
+            <label for="f-consent">Consent language</label>
+            <textarea id="f-consent" data-field="Voice: Consent Language" placeholder="e.g. Language used to confirm someone's okay continuing with an automated flow."></textarea>
+          </div>
+          <div class="field">
+            <label for="f-sms">SMS opt-in language</label>
+            <textarea id="f-sms" data-field="SMS Consent / Opt-in Language" placeholder="e.g. Reply YES to receive text updates about your booking. Msg &amp; data rates may apply."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-head">
+          <h2>What you already have</h2>
+          <p>So we build with your existing tools instead of around them.</p>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="f-leadform">Where your leads come from</label>
+            <input id="f-leadform" data-field="Lead Capture Form / Tool" type="text" placeholder="e.g. Instagram DMs, a GoHighLevel form, my website">
+          </div>
+          <div class="field">
+            <label for="f-templates">Do you already have message templates?</label>
+            <input id="f-templates" data-field="Existing Message Templates on File?" type="text" placeholder="e.g. Yes — a few follow-up emails I reuse">
+          </div>
+        </div>
+      </div>
+
+      <div class="save-bar">
+        <div class="save-status" id="saveStatus"></div>
+        <button type="submit" class="save-btn" id="saveBtn">Save Blueprint</button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+<script>
+  const GET_URL = 'https://aisilentpartner.app.n8n.cloud/webhook/doresa-get-blueprint-client';
+  const SAVE_URL = 'https://aisilentpartner.app.n8n.cloud/webhook/doresa-update-blueprint-client';
+
+  const LOCKED_FIELDS = ['Client Name', 'Company', 'Offer Tier 1 (Name)', 'Offer Tier 1 (Price)', 'Offer Tier 2 (Name)', 'Offer Tier 2 (Price)', 'Offer Tier 3 (Name)', 'Offer Tier 3 (Price)'];
+
+  const loadState = document.getElementById('loadState');
+  const errorState = document.getElementById('errorState');
+  const content = document.getElementById('content');
+  const planRows = document.getElementById('planRows');
+  const form = document.getElementById('blueprintForm');
+  const saveBtn = document.getElementById('saveBtn');
+  const saveStatus = document.getElementById('saveStatus');
+
+  function displayValue(v) {
+    if (!v || v.trim() === '' || v.trim().toLowerCase() === 'pending') return '';
+    return v;
+  }
+
+  function renderPlan(rows) {
+    const byField = Object.fromEntries(rows.map(r => [r.Field, r.Value]));
+    const pieces = [
+      ['Client', byField['Client Name']],
+      ['Company', byField['Company']],
+    ];
+    for (let i = 1; i <= 3; i++) {
+      const name = byField[`Offer Tier ${i} (Name)`];
+      const price = byField[`Offer Tier ${i} (Price)`];
+      if (name) pieces.push([name, price || '']);
+    }
+    planRows.innerHTML = pieces.map(([label, value], i) => {
+      const divider = i === 2 ? '<div class="plan-divider"></div>' : '';
+      return `${divider}<dt>${label}</dt><dd>${value || '&mdash;'}</dd>`;
+    }).join('');
+  }
+
+  function renderForm(rows) {
+    const byField = Object.fromEntries(rows.map(r => [r.Field, r.Value]));
+    document.querySelectorAll('[data-field]').forEach(el => {
+      const val = displayValue(byField[el.dataset.field]);
+      if (val) el.value = val;
+    });
+  }
+
+  async function loadBlueprint() {
+    try {
+      const res = await fetch(GET_URL);
+      if (!res.ok) throw new Error('bad response');
+      const rows = await res.json();
+      renderPlan(rows);
+      renderForm(rows);
+      loadState.classList.add('hidden');
+      content.classList.remove('hidden');
+    } catch (err) {
+      loadState.classList.add('hidden');
+      errorState.classList.add('show');
+    }
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const updates = Array.from(document.querySelectorAll('[data-field]')).map(el => ({
+      field: el.dataset.field,
+      value: el.value.trim()
+    }));
+
+    saveBtn.disabled = true;
+    saveStatus.innerHTML = '<span class="spinner"></span> Saving&hellip;';
+
+    try {
+      const res = await fetch(SAVE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ updates })
+      });
+      if (!res.ok) throw new Error('save failed');
+      const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      saveStatus.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Saved at ${now}`;
+    } catch (err) {
+      saveStatus.textContent = "Couldn't save — check your connection and try again.";
+    } finally {
+      saveBtn.disabled = false;
+    }
+  });
+
+  loadBlueprint();
+</script>
+
+</body>
+</html>
