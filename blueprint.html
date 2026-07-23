@@ -6,7 +6,7 @@
 <title>The Blueprint — AI Silent Partner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Lora:ital,wght@0,500;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -127,6 +127,11 @@
     font-family: var(--font-heading);
   }
 
+  .plan-rows dd.price {
+    color: var(--gold-deep);
+    font-size: 1.05rem;
+  }
+
   .plan-divider {
     height: 1px;
     background: var(--sand);
@@ -139,12 +144,28 @@
   form { display: flex; flex-direction: column; gap: 2.75rem; }
 
   .group-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
     margin-bottom: 1.3rem;
   }
 
   .group-head h2 {
     font-size: 1.15rem;
     font-weight: 700;
+  }
+
+  .group-head .tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    background: var(--cream-tint);
+    border: 1px solid var(--sand);
+    border-radius: 100px;
+    padding: 0.2rem 0.65rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
   }
 
   .group-head p {
@@ -317,9 +338,9 @@
 <div class="page">
 
   <header class="masthead">
-    <div class="eyebrow">AI Silent Partner &middot; Right Hand Onboarding</div>
+    <div class="eyebrow">AI Silent Partner &middot; Right Hand Starter Onboarding</div>
     <h1>The <span class="script">Blueprint</span></h1>
-    <p>This is the spec we build your Right Hand system from — how calls get qualified, what your booking confirmation says, how your voice sounds. Fill in what you know; you can come back and refine it later.</p>
+    <p>This is what we build your Email, Calendar, Contact, and Think Assistants from. Send your inbox, calendar, notes, and contacts as they are today — messy is fine. You'll have a working system in 5&ndash;7 business days.</p>
   </header>
 
   <div id="loadState" class="load-state">
@@ -337,7 +358,7 @@
     <section class="plan-card">
       <div class="plan-head">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-        <span>Your plan — set by us</span>
+        <span>Your plan &mdash; set by us</span>
       </div>
       <dl class="plan-rows" id="planRows"></dl>
     </section>
@@ -346,81 +367,111 @@
 
       <div class="group">
         <div class="group-head">
-          <h2>Booking &amp; calls</h2>
-          <p>How a lead turns into a booked call, and what happens around it.</p>
+          <h2>About your business</h2>
         </div>
         <div class="field-grid">
           <div class="field">
-            <label for="f-qualify">Qualifying question</label>
-            <span class="hint">The one question that tells you whether a lead is worth a call.</span>
-            <textarea id="f-qualify" data-field="Qualifying Question / Logic" placeholder="e.g. What's your current monthly revenue?"></textarea>
+            <label for="f-what">In one sentence, what does your business do?</label>
+            <textarea id="f-what" data-field="What The Business Does" placeholder="e.g. I coach mid-career professionals through career pivots."></textarea>
           </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-head">
+          <span class="tag">Part 1</span>
+          <h2>Email Assistant</h2>
+        </div>
+        <p style="font-size: 0.9rem; opacity: 0.85; margin: -1rem 0 1.2rem;">Kills "I'm buried in email and can't reply fast enough."</p>
+        <div class="field-grid">
           <div class="two-col">
             <div class="field">
-              <label for="f-length">Call length</label>
-              <input id="f-length" data-field="Call Length" type="text" placeholder="e.g. 45 minutes">
+              <label for="f-email-platform">Email platform</label>
+              <input id="f-email-platform" data-field="Email Platform" type="text" placeholder="e.g. Gmail, Outlook">
             </div>
             <div class="field">
-              <label for="f-buffer">Buffer between calls</label>
-              <input id="f-buffer" data-field="Buffer Time Between Calls" type="text" placeholder="e.g. 15 minutes">
+              <label for="f-email-pain">Your biggest email headache</label>
+              <input id="f-email-pain" data-field="Email Pain Point" type="text" placeholder="e.g. I can't keep up with replies">
             </div>
           </div>
-          <div class="field">
-            <label for="f-timezone">Your timezone</label>
-            <input id="f-timezone" data-field="Timezone" type="text" placeholder="e.g. Eastern (America/New_York)">
-          </div>
-          <div class="field">
-            <label for="f-confirm">Booking confirmation message</label>
-            <span class="hint">What a lead sees the moment they book.</span>
-            <textarea id="f-confirm" data-field="Booking Confirmation Message" placeholder="e.g. You're booked! Check your email for the calendar invite."></textarea>
-          </div>
-          <div class="field">
-            <label for="f-fallback">If it's a no-show or not a fit</label>
-            <textarea id="f-fallback" data-field="Fallback Behavior (no answer / no fit)" placeholder="e.g. Send a reschedule link after 10 minutes of no-show."></textarea>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-head">
+          <span class="tag">Part 2</span>
+          <h2>Calendar Assistant</h2>
+        </div>
+        <p style="font-size: 0.9rem; opacity: 0.85; margin: -1rem 0 1.2rem;">Kills "My calendar is messy and I miss what matters."</p>
+        <div class="field-grid">
+          <div class="two-col">
+            <div class="field">
+              <label for="f-cal-platform">Calendar platform</label>
+              <input id="f-cal-platform" data-field="Calendar Platform" type="text" placeholder="e.g. Google Calendar">
+            </div>
+            <div class="field">
+              <label for="f-cal-pain">Your biggest calendar headache</label>
+              <input id="f-cal-pain" data-field="Calendar Pain Point" type="text" placeholder="e.g. Double bookings, no protected time">
+            </div>
           </div>
         </div>
       </div>
 
       <div class="group">
         <div class="group-head">
-          <h2>Voice &amp; compliance</h2>
-          <p>How the system should sound, and the disclosures it's required to give.</p>
+          <span class="tag">Part 3</span>
+          <h2>Contact Assistant</h2>
         </div>
+        <p style="font-size: 0.9rem; opacity: 0.85; margin: -1rem 0 1.2rem;">Kills "I lose track of contacts and follow-up opportunities."</p>
         <div class="field-grid">
           <div class="field">
-            <label for="f-voice">Voice &amp; tone</label>
-            <span class="hint">Words you'd use to describe how you talk to leads — and any you'd never use.</span>
-            <textarea id="f-voice" data-field="Voice / Tone Notes" placeholder="e.g. Warm, direct, no corporate jargon."></textarea>
-          </div>
-          <div class="field">
-            <label for="f-disclosure">AI disclosure line</label>
-            <span class="hint">What tells someone they're talking to an automated system.</span>
-            <input id="f-disclosure" data-field="Voice: AI Disclosure Line" type="text" placeholder="e.g. This is an automated assistant for [Business].">
-          </div>
-          <div class="field">
-            <label for="f-consent">Consent language</label>
-            <textarea id="f-consent" data-field="Voice: Consent Language" placeholder="e.g. Language used to confirm someone's okay continuing with an automated flow."></textarea>
-          </div>
-          <div class="field">
-            <label for="f-sms">SMS opt-in language</label>
-            <textarea id="f-sms" data-field="SMS Consent / Opt-in Language" placeholder="e.g. Reply YES to receive text updates about your booking. Msg &amp; data rates may apply."></textarea>
+            <label for="f-contacts">Where your contacts live today</label>
+            <input id="f-contacts" data-field="Where Contacts Live Today" type="text" placeholder="e.g. Phone contacts, a spreadsheet, no real system">
           </div>
         </div>
       </div>
 
       <div class="group">
         <div class="group-head">
-          <h2>What you already have</h2>
-          <p>So we build with your existing tools instead of around them.</p>
+          <span class="tag">Part 4</span>
+          <h2>Think Assistant</h2>
+        </div>
+        <p style="font-size: 0.9rem; opacity: 0.85; margin: -1rem 0 1.2rem;">Kills "I have notes and ideas, but I don't know what to do next."</p>
+        <div class="field-grid">
+          <div class="field">
+            <label for="f-notes">Where your notes and ideas live today</label>
+            <input id="f-notes" data-field="Where Notes And Ideas Live Today" type="text" placeholder="e.g. Notes app, voice memos, sticky notes">
+          </div>
+          <div class="field">
+            <label for="f-nextsteps">How you'd like next steps handed back to you</label>
+            <textarea id="f-nextsteps" data-field="Preferred Next-Steps Format" placeholder="e.g. A short list every morning, a weekly summary email"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-head">
+          <span class="tag">Part 5</span>
+          <h2>Dashboard &amp; Profit Sheet</h2>
+        </div>
+        <p style="font-size: 0.9rem; opacity: 0.85; margin: -1rem 0 1.2rem;">Kills "I want to see what matters without digging through spreadsheets."</p>
+        <div class="field-grid">
+          <div class="field">
+            <label for="f-dashboard">What you want to see at a glance</label>
+            <textarea id="f-dashboard" data-field="Dashboard Priority Numbers" placeholder="e.g. Revenue this month, open tasks, upcoming deadlines"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-head">
+          <h2>Getting started</h2>
         </div>
         <div class="field-grid">
           <div class="field">
-            <label for="f-leadform">Where your leads come from</label>
-            <input id="f-leadform" data-field="Lead Capture Form / Tool" type="text" placeholder="e.g. Instagram DMs, a GoHighLevel form, my website">
-          </div>
-          <div class="field">
-            <label for="f-templates">Do you already have message templates?</label>
-            <input id="f-templates" data-field="Existing Message Templates on File?" type="text" placeholder="e.g. Yes — a few follow-up emails I reuse">
+            <label for="f-access">How you'll share access</label>
+            <span class="hint">Inbox, calendar, notes, and contacts — whatever's easiest: a shared folder, adding as a collaborator, exports.</span>
+            <textarea id="f-access" data-field="Access And File-Sharing Notes" placeholder="e.g. I'll add you as a collaborator on my calendar and share a folder with exports"></textarea>
           </div>
         </div>
       </div>
@@ -440,8 +491,6 @@
   const GET_URL = 'https://aisilentpartner.app.n8n.cloud/webhook/doresa-get-blueprint-client';
   const SAVE_URL = 'https://aisilentpartner.app.n8n.cloud/webhook/doresa-update-blueprint-client';
 
-  const LOCKED_FIELDS = ['Client Name', 'Company', 'Offer Tier 1 (Name)', 'Offer Tier 1 (Price)', 'Offer Tier 2 (Name)', 'Offer Tier 2 (Price)', 'Offer Tier 3 (Name)', 'Offer Tier 3 (Price)'];
-
   const loadState = document.getElementById('loadState');
   const errorState = document.getElementById('errorState');
   const content = document.getElementById('content');
@@ -457,19 +506,12 @@
 
   function renderPlan(rows) {
     const byField = Object.fromEntries(rows.map(r => [r.Field, r.Value]));
-    const pieces = [
-      ['Client', byField['Client Name']],
-      ['Company', byField['Company']],
-    ];
-    for (let i = 1; i <= 3; i++) {
-      const name = byField[`Offer Tier ${i} (Name)`];
-      const price = byField[`Offer Tier ${i} (Price)`];
-      if (name) pieces.push([name, price || '']);
-    }
-    planRows.innerHTML = pieces.map(([label, value], i) => {
-      const divider = i === 2 ? '<div class="plan-divider"></div>' : '';
-      return `${divider}<dt>${label}</dt><dd>${value || '&mdash;'}</dd>`;
-    }).join('');
+    planRows.innerHTML = `
+      <dt>Client</dt><dd>${byField['Client Name'] || '&mdash;'}</dd>
+      <dt>Company</dt><dd>${byField['Company'] || '&mdash;'}</dd>
+      <div class="plan-divider"></div>
+      <dt>${byField['Offer'] || 'Right Hand Starter'}</dt><dd class="price">${byField['Price'] || '&mdash;'}</dd>
+    `;
   }
 
   function renderForm(rows) {
