@@ -42,9 +42,7 @@
     padding: 4rem 1.5rem 8rem;
   }
 
-  header.masthead {
-    margin-bottom: 3rem;
-  }
+  header.masthead { margin-bottom: 3rem; }
 
   .eyebrow {
     font-size: 0.8rem;
@@ -55,12 +53,7 @@
     margin-bottom: 0.6rem;
   }
 
-  h1 {
-    font-size: 2.1rem;
-    font-weight: 700;
-    line-height: 1.2;
-    text-wrap: balance;
-  }
+  h1 { font-size: 2.1rem; font-weight: 700; line-height: 1.2; text-wrap: balance; }
 
   h1 .script {
     font-family: var(--font-script);
@@ -92,12 +85,7 @@
     margin-bottom: 1.1rem;
   }
 
-  .plan-card .plan-head svg {
-    width: 15px;
-    height: 15px;
-    stroke: var(--sand);
-    flex-shrink: 0;
-  }
+  .plan-card .plan-head svg { width: 15px; height: 15px; stroke: var(--sand); flex-shrink: 0; }
 
   .plan-card .plan-head span {
     font-size: 0.78rem;
@@ -115,10 +103,7 @@
     font-size: 0.95rem;
   }
 
-  .plan-rows dt {
-    color: var(--burgundy-soft);
-    opacity: 0.75;
-  }
+  .plan-rows dt { color: var(--burgundy-soft); opacity: 0.75; }
 
   .plan-rows dd {
     color: var(--burgundy);
@@ -127,10 +112,7 @@
     font-family: var(--font-heading);
   }
 
-  .plan-rows dd.price {
-    color: var(--gold-deep);
-    font-size: 1.05rem;
-  }
+  .plan-rows dd.price { color: var(--gold-deep); font-size: 1.05rem; }
 
   .plan-divider {
     height: 1px;
@@ -143,15 +125,28 @@
   /* ===== FORM ===== */
   form { display: flex; flex-direction: column; gap: 2.75rem; }
 
-  .group-head { margin-bottom: 1.2rem; }
+  .group-head { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 1.2rem; }
 
   .group-head h2 { font-size: 1.15rem; font-weight: 700; }
 
-  .group-head p {
+  .group-head .tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    background: var(--cream-tint);
+    border: 1px solid var(--sand);
+    border-radius: 100px;
+    padding: 0.2rem 0.65rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+  }
+
+  .group-sub {
     font-size: 0.9rem;
     color: var(--burgundy-soft);
     opacity: 0.85;
-    margin-top: 0.25rem;
+    margin: -0.9rem 0 1.1rem;
   }
 
   .field-grid { display: grid; gap: 1.4rem; }
@@ -195,11 +190,7 @@
     padding-right: 2.5rem;
   }
 
-  .field textarea {
-    resize: vertical;
-    min-height: 4.6rem;
-    line-height: 1.55;
-  }
+  .field textarea { resize: vertical; min-height: 4.6rem; line-height: 1.55; }
 
   .field input:focus,
   .field select:focus,
@@ -210,20 +201,11 @@
   }
 
   .field input::placeholder,
-  .field textarea::placeholder {
-    color: var(--sand);
-    opacity: 1;
-  }
+  .field textarea::placeholder { color: var(--sand); opacity: 1; }
 
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.4rem;
-  }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
 
-  @media (max-width: 560px) {
-    .two-col { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
 
   /* ===== SAVE BAR ===== */
   .save-bar {
@@ -250,12 +232,7 @@
     gap: 0.5rem;
   }
 
-  .save-status svg {
-    width: 16px;
-    height: 16px;
-    stroke: var(--gold-deep);
-    flex-shrink: 0;
-  }
+  .save-status svg { width: 16px; height: 16px; stroke: var(--gold-deep); flex-shrink: 0; }
 
   .save-status .spinner {
     width: 14px;
@@ -286,11 +263,7 @@
   button.save-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
 
   /* ===== LOAD / ERROR STATES ===== */
-  .load-state, .error-state {
-    text-align: center;
-    padding: 4rem 1rem;
-    color: var(--burgundy-soft);
-  }
+  .load-state, .error-state { text-align: center; padding: 4rem 1rem; color: var(--burgundy-soft); }
 
   .load-state .spinner {
     width: 26px;
@@ -319,9 +292,9 @@
 <div class="page">
 
   <header class="masthead">
-    <div class="eyebrow">AI Silent Partner &middot; Right Hand Starter Onboarding</div>
+    <div class="eyebrow">AI Silent Partner &middot; Right Hand Onboarding</div>
     <h1>The <span class="script">Blueprint</span></h1>
-    <p>Your starter implementation is built around the ONE bottleneck causing the most daily drag &mdash; inbox triage, follow-up visibility, or a daily summary. Tell us which one, where you want it delivered, what you already use, and who should run it.</p>
+    <p>This is the spec we build your full Right Hand system from: five agents, a daily summary, and two bonuses. Fill in what you know now &mdash; you can refine any of it later.</p>
   </header>
 
   <div id="loadState" class="load-state">
@@ -347,9 +320,7 @@
     <form id="blueprintForm">
 
       <div class="group">
-        <div class="group-head">
-          <h2>About your business</h2>
-        </div>
+        <div class="group-head"><h2>About your business</h2></div>
         <div class="field-grid">
           <div class="field">
             <label for="f-what">In one sentence, what does your business do?</label>
@@ -359,33 +330,41 @@
       </div>
 
       <div class="group">
-        <div class="group-head">
-          <h2>Your one bottleneck</h2>
-          <p>We build this first. Everything else waits.</p>
-        </div>
+        <div class="group-head"><span class="tag">Agent 1</span><h2>Email Agent</h2></div>
+        <p class="group-sub">Sorts, labels, summarizes, flags urgent messages, and extracts contacts as they come in.</p>
         <div class="field-grid">
           <div class="field">
-            <label for="f-bottleneck">What's creating the most daily drag right now?</label>
-            <select id="f-bottleneck" data-field="Primary Bottleneck">
-              <option value="">Choose one&hellip;</option>
-              <option value="Inbox Triage">Inbox triage &mdash; I can't keep up with email</option>
-              <option value="Follow-Up Visibility">Follow-up visibility &mdash; leads and promises fall through the cracks</option>
-              <option value="Daily Summary">Daily summary &mdash; I don't have a clear view of what matters today</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="f-bottleneck-detail" id="f-bottleneck-detail-label">What should we know about it?</label>
-            <span class="hint" id="f-bottleneck-detail-hint">Choose a bottleneck above first.</span>
-            <textarea id="f-bottleneck-detail" data-field="Bottleneck Detail" placeholder="Choose a bottleneck above first."></textarea>
+            <label for="f-email-agent">What makes an email urgent for you?</label>
+            <textarea id="f-email-agent" data-field="Email Agent Detail" placeholder="e.g. anything from a client, the word &quot;invoice,&quot; or these people: ..."></textarea>
           </div>
         </div>
       </div>
 
       <div class="group">
-        <div class="group-head">
-          <h2>Where you want it delivered</h2>
-          <p>Summaries and alerts go where you actually pay attention.</p>
+        <div class="group-head"><span class="tag">Agent 2</span><h2>Follow-Up Agent</h2></div>
+        <p class="group-sub">Tracks leads and threads that have gone quiet so nothing depends on you remembering.</p>
+        <div class="field-grid">
+          <div class="field">
+            <label for="f-followup">What counts as a follow-up you don't want to miss, and after how long?</label>
+            <textarea id="f-followup" data-field="Follow-Up Detail" placeholder="e.g. new leads, replies to proposals, anyone gone quiet 3+ days"></textarea>
+          </div>
         </div>
+      </div>
+
+      <div class="group">
+        <div class="group-head"><span class="tag">Every morning</span><h2>Daily Summary</h2></div>
+        <p class="group-sub">Pulled from Calendar Agent + PM Agent, summarized, delivered to your channel.</p>
+        <div class="field-grid">
+          <div class="field">
+            <label for="f-dailytime">What time (and timezone) should it arrive?</label>
+            <input id="f-dailytime" data-field="Daily Summary Time" type="text" placeholder="e.g. 7:00 AM Eastern, or the default 5:00 AM">
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-head"><h2>Where it's delivered</h2></div>
+        <p class="group-sub">Your Email, Follow-Up, and Daily Summary agents all report here.</p>
         <div class="field-grid">
           <div class="two-col">
             <div class="field">
@@ -406,10 +385,8 @@
       </div>
 
       <div class="group">
-        <div class="group-head">
-          <h2>Your project management tool</h2>
-          <p>Where tasks and follow-ups will actually live.</p>
-        </div>
+        <div class="group-head"><h2>Your project management tool</h2></div>
+        <p class="group-sub">Where PM Agent and Contacts Agent keep tasks and contacts &mdash; also where your Financial Pulse bonus dashboard lives.</p>
         <div class="field-grid">
           <div class="two-col">
             <div class="field">
@@ -432,9 +409,8 @@
       </div>
 
       <div class="group">
-        <div class="group-head">
-          <h2>Email &amp; calendar</h2>
-        </div>
+        <div class="group-head"><h2>Email &amp; calendar</h2></div>
+        <p class="group-sub">Powers Email Agent and Calendar Agent.</p>
         <div class="field-grid">
           <div class="field">
             <label for="f-emailcal">Which do you use?</label>
@@ -448,10 +424,19 @@
       </div>
 
       <div class="group">
-        <div class="group-head">
-          <h2>Who runs it</h2>
-          <p>Either way works &mdash; this just decides where the automation lives.</p>
+        <div class="group-head"><span class="tag">Bonus</span><h2>Content Agent</h2></div>
+        <p class="group-sub">Drafts ready-to-post social content so you're not starting from a blank page.</p>
+        <div class="field-grid">
+          <div class="field">
+            <label for="f-content">What topics or voice should it write in?</label>
+            <textarea id="f-content" data-field="Content Agent Detail" placeholder="e.g. practical tips for my niche, warm and direct, no corporate jargon"></textarea>
+          </div>
         </div>
+      </div>
+
+      <div class="group">
+        <div class="group-head"><h2>Who runs it</h2></div>
+        <p class="group-sub">Either way works &mdash; this just decides where the automation lives.</p>
         <div class="field-grid">
           <div class="field">
             <label for="f-hosting">Hosting</label>
@@ -465,10 +450,8 @@
       </div>
 
       <div class="group">
-        <div class="group-head">
-          <h2>Getting started</h2>
-          <p>This form doesn't collect passwords, tokens, or API keys. Once you save, we'll follow up with the exact, secure steps to connect the tools you picked above.</p>
-        </div>
+        <div class="group-head"><h2>Getting started</h2></div>
+        <p class="group-sub">This form doesn't collect passwords, tokens, or API keys. Once you save, we'll follow up with the exact, secure steps to connect the tools you picked above.</p>
         <div class="field-grid">
           <div class="field">
             <label for="f-access">Anything we should know before we reach out?</label>
@@ -493,41 +476,6 @@
   const GET_URL = 'https://aisilentpartner.app.n8n.cloud/webhook/doresa-get-blueprint-client';
   const SAVE_URL = 'https://aisilentpartner.app.n8n.cloud/webhook/doresa-update-blueprint-client';
 
-  const BOTTLENECK_DETAIL = {
-    'Inbox Triage': {
-      label: "What makes an email urgent for you?",
-      placeholder: "e.g. anything from a client, the word \"invoice,\" or these 3 people: ..."
-    },
-    'Follow-Up Visibility': {
-      label: "What counts as a follow-up you don't want to miss?",
-      placeholder: "e.g. new leads, replies to proposals, anyone who's gone quiet for 3+ days"
-    },
-    'Daily Summary': {
-      label: "What time (and timezone) should your summary arrive?",
-      placeholder: "e.g. 7:00 AM Eastern, before I check anything else"
-    }
-  };
-
-  const bottleneckSelect = document.getElementById('f-bottleneck');
-  const bottleneckDetailLabel = document.getElementById('f-bottleneck-detail-label');
-  const bottleneckDetailHint = document.getElementById('f-bottleneck-detail-hint');
-  const bottleneckDetailField = document.getElementById('f-bottleneck-detail');
-
-  function syncBottleneckDetail() {
-    const choice = BOTTLENECK_DETAIL[bottleneckSelect.value];
-    if (choice) {
-      bottleneckDetailLabel.textContent = choice.label;
-      bottleneckDetailHint.textContent = '';
-      bottleneckDetailField.placeholder = choice.placeholder;
-    } else {
-      bottleneckDetailLabel.textContent = 'What should we know about it?';
-      bottleneckDetailHint.textContent = 'Choose a bottleneck above first.';
-      bottleneckDetailField.placeholder = 'Choose a bottleneck above first.';
-    }
-  }
-
-  bottleneckSelect.addEventListener('change', syncBottleneckDetail);
-
   const loadState = document.getElementById('loadState');
   const errorState = document.getElementById('errorState');
   const content = document.getElementById('content');
@@ -547,7 +495,7 @@
       <dt>Client</dt><dd>${byField['Client Name'] || '&mdash;'}</dd>
       <dt>Company</dt><dd>${byField['Company'] || '&mdash;'}</dd>
       <div class="plan-divider"></div>
-      <dt>${byField['Offer'] || 'Right Hand Starter'}</dt><dd class="price">${byField['Price'] || '&mdash;'}</dd>
+      <dt>${byField['Offer'] || 'Right Hand'}</dt><dd class="price">${byField['Price'] || '&mdash;'}</dd>
     `;
   }
 
@@ -566,7 +514,6 @@
       const rows = await res.json();
       renderPlan(rows);
       renderForm(rows);
-      syncBottleneckDetail();
       loadState.classList.add('hidden');
       content.classList.remove('hidden');
     } catch (err) {
