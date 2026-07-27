@@ -245,6 +245,10 @@
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
+  .save-bar { flex-wrap: wrap; }
+
+  .save-buttons { display: flex; gap: 0.7rem; flex-shrink: 0; }
+
   button.save-btn {
     background: var(--gold);
     color: var(--burgundy);
@@ -261,6 +265,23 @@
 
   button.save-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(195, 152, 66, 0.4); }
   button.save-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+  button.save-later-btn {
+    background: transparent;
+    color: var(--burgundy);
+    padding: 0.85rem 1.6rem;
+    border-radius: 50px;
+    border: 1px solid var(--sand);
+    font-weight: 600;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  button.save-later-btn:hover { background: var(--cream-tint); }
+  button.save-later-btn:disabled { opacity: 0.6; cursor: default; }
 
   /* ===== LOAD / ERROR STATES ===== */
   .load-state, .error-state { text-align: center; padding: 4rem 1rem; color: var(--burgundy-soft); }
@@ -464,7 +485,10 @@
 
       <div class="save-bar">
         <div class="save-status" id="saveStatus"></div>
-        <button type="submit" class="save-btn" id="saveBtn">Save Blueprint</button>
+        <div class="save-buttons">
+          <button type="button" class="save-later-btn" id="saveLaterBtn">Save for Later</button>
+          <button type="button" class="save-btn" id="submitBtn">Submit Blueprint</button>
+        </div>
       </div>
 
     </form>
@@ -483,7 +507,8 @@
   const content = document.getElementById('content');
   const planRows = document.getElementById('planRows');
   const form = document.getElementById('blueprintForm');
-  const saveBtn = document.getElementById('saveBtn');
+  const saveLaterBtn = document.getElementById('saveLaterBtn');
+  const submitBtn = document.getElementById('submitBtn');
   const saveStatus = document.getElementById('saveStatus');
 
   function displayValue(v) {
@@ -529,31 +554,40 @@
     }
   }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  async function saveBlueprint(action) {
     const updates = Array.from(document.querySelectorAll('[data-field]')).map(el => ({
       field: el.dataset.field,
       value: el.value.trim()
     }));
 
-    saveBtn.disabled = true;
-    saveStatus.innerHTML = '<span class="spinner"></span> Saving&hellip;';
+    saveLaterBtn.disabled = true;
+    submitBtn.disabled = true;
+    saveStatus.innerHTML = action === 'submit'
+      ? '<span class="spinner"></span> Submitting&hellip;'
+      : '<span class="spinner"></span> Saving&hellip;';
 
     try {
       const res = await fetch(SAVE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: CLIENT_ID, updates })
+        body: JSON.stringify({ id: CLIENT_ID, action, updates })
       });
       if (!res.ok) throw new Error('save failed');
       const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      saveStatus.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Saved at ${now}`;
+      const message = action === 'submit'
+        ? `Submitted at ${now}, we'll be in touch`
+        : `Saved at ${now}, check your email for your link`;
+      saveStatus.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> ${message}`;
     } catch (err) {
       saveStatus.textContent = "Couldn't save, check your connection and try again.";
     } finally {
-      saveBtn.disabled = false;
+      saveLaterBtn.disabled = false;
+      submitBtn.disabled = false;
     }
-  });
+  }
+
+  saveLaterBtn.addEventListener('click', () => saveBlueprint('save'));
+  submitBtn.addEventListener('click', () => saveBlueprint('submit'));
 
   loadBlueprint();
 </script>
