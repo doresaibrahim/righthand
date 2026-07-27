@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Right Hand | Doresa Ibrahim</title>
 <meta name="description" content="The Right Hand helps solo business owners run their business with less chaos, fewer lost hours, and a clearer pulse on what really matters.">
+<link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/brand/favicon-512.png">
+<link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
+<meta property="og:title" content="The Right Hand | Doresa Ibrahim">
+<meta property="og:description" content="The Right Hand helps solo business owners run their business with less chaos, fewer lost hours, and a clearer pulse on what really matters.">
+<meta property="og:image" content="https://righthandintake.com/brand/og-image.jpg">
+<meta property="og:url" content="https://righthandintake.com">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -28,7 +37,8 @@
   .cap { font-family: var(--sans); font-size: 11px; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase; }
   .site-header { padding: 18px 0 0; }
   .site-header .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-  .site-header .brand { font-family: var(--sans); font-size: 0.84rem; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .site-header .brand { display: flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: 0.84rem; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .site-header .brand img { width: 32px; height: 32px; border-radius: 50%; }
   .site-header .nav a { font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: var(--soft); text-decoration: none; margin-left: 16px; }
   .site-header .nav a:hover { color: var(--accent); }
   .hero { padding: 92px 0 76px; text-align: center; }
@@ -98,13 +108,13 @@
   .site-footer { padding: 8px 0 60px; }
   .footer-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; font-family: var(--sans); font-size: 13px; color: var(--soft); }
   .footer-meta a { color: var(--accent); text-decoration: none; font-weight: 700; }
-  @media (max-width: 640px) { .hero { padding: 64px 0 56px; } section { padding: 60px 0; } .footer-meta { flex-direction: column; align-items: flex-start; } }
+  @media (max-width: 640px) { .hero { padding: 64px 0 56px; } section { padding: 60px 0; } .footer-meta { flex-direction: column; align-items: flex-start; } .site-header .wrap { flex-direction: column; align-items: flex-start; gap: 10px; } .site-header .nav a { margin-left: 0; margin-right: 14px; } }
 </style>
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="#top">The Right Hand</a>
+      <a class="brand" href="#top"><img src="/brand/mark.png" alt="">The Right Hand</a>
       <nav class="nav" aria-label="Primary">
         <a href="#problem">The Problem</a>
         <a href="#offer">How it works</a>
