@@ -476,6 +476,7 @@
 <script>
   const GET_URL = 'https://aisilentpartner.app.n8n.cloud/webhook/doresa-get-blueprint-client';
   const SAVE_URL = 'https://aisilentpartner.app.n8n.cloud/webhook/doresa-update-blueprint-client';
+  const CLIENT_ID = new URLSearchParams(window.location.search).get('id');
 
   const loadState = document.getElementById('loadState');
   const errorState = document.getElementById('errorState');
@@ -509,8 +510,13 @@
   }
 
   async function loadBlueprint() {
+    if (!CLIENT_ID) {
+      loadState.classList.add('hidden');
+      errorState.classList.add('show');
+      return;
+    }
     try {
-      const res = await fetch(GET_URL);
+      const res = await fetch(`${GET_URL}?id=${encodeURIComponent(CLIENT_ID)}`);
       if (!res.ok) throw new Error('bad response');
       const rows = await res.json();
       renderPlan(rows);
@@ -537,13 +543,13 @@
       const res = await fetch(SAVE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ updates })
+        body: JSON.stringify({ id: CLIENT_ID, updates })
       });
       if (!res.ok) throw new Error('save failed');
       const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       saveStatus.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Saved at ${now}`;
     } catch (err) {
-      saveStatus.textContent = "Couldn't save — check your connection and try again.";
+      saveStatus.textContent = "Couldn't save, check your connection and try again.";
     } finally {
       saveBtn.disabled = false;
     }
